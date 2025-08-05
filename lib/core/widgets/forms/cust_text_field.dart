@@ -48,7 +48,7 @@ class CustTextField extends StatelessWidget {
   final Color? backgroundColor;
   final String? errorText; // Added error text property
 
-  const CustTextField({
+  const   CustTextField({
     Key? key,
     this.labelText,
     this.hintText,

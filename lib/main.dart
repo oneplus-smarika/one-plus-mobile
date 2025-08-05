@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:oneplus_app/feat/auth/presentation/pages/test_page.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'feat/auth/presentation/pages/splash_screen.dart';
+import 'feat/auth/presentation/pages/welcome_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ProviderScope(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -16,7 +18,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const TestPage(),
+      home: const SplashScreen(),
+      routes: {
+        '/welcome': (context) => const WelcomePage(),
+      },
     );
   }
 }
