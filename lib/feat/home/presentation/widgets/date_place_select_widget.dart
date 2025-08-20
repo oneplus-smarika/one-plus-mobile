@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/utils/ui_helpers/app_spacing.dart';
 import '../../../../core/widgets/buttons/reusable_buttons.dart';
@@ -82,14 +84,21 @@ class _DatePlaceSelectWidgetState extends State<DatePlaceSelectWidget> {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: AppColors.white,
+                  color: AppColors.cardColor,
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(color: AppColors.gray700),
                 ),
-                child: CText(
-                  "Reset",
-                  type: TextType.bodyMedium,
-                  color: AppColors.mainColor,
+                child: Row(
+                  spacing: 4,
+                  children: [
+                    SvgPicture.asset(AppAssets.resetLogo, height: 16),
+                    CText(
+                      "Reset",
+
+                      type: TextType.bodyMedium,
+                      color: AppColors.mainColor,
+                    ),
+                  ],
                 ),
               ),
             ],

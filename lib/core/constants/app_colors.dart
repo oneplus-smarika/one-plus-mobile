@@ -9,6 +9,7 @@ class AppColors {
   static const Color backgroundColor = Color(0xFFF7F8FF);
   static const Color searchBarColor = Color(0xFFF0F2F8);
   static const Color footerColor = Color(0xFFEDEFFA);
+  static const Color cardColor = Color(0xFFFAF7F7);
 
   /// Hover Colors
   static const Color hoverColor1 = Color(0xFF0D3F8B);

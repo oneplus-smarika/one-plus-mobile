@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
                   child: ReusableButton(
                     borderRadiusCust: BorderRadius.circular(12),
                     borderColor: AppColors.gray300,
-                    backgroundColor: AppColors.white,
+                    backgroundColor: AppColors.cardColor,
                     textColor: AppColors.gray900,
                     btnIcon: const Icon(Icons.location_on),
                     text: 'Kathmandu',
@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                   child: ReusableButton(
                     borderRadiusCust: BorderRadius.circular(12),
                     borderColor: AppColors.gray300,
-                    backgroundColor: AppColors.white,
+                    backgroundColor: AppColors.cardColor,
                     textColor: AppColors.gray900,
                     btnIcon: const Icon(Icons.location_on),
                     text: 'Biratnagar',

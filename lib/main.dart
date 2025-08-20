@@ -20,9 +20,7 @@ class MyApp extends StatelessWidget {
       ),
       // home: const SplashScreen(),
       home: const HomePage(),
-      routes: {
-        '/welcome': (context) => const WelcomePage(),
-      },
+      routes: {'/welcome': (context) => const WelcomePage()},
     );
   }
 }
