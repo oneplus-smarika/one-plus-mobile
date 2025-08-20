@@ -19,9 +19,14 @@ class AppColors {
   static const Color cardColor1 = Color(0xFFF5F5F5);
   static const Color cardColor2 = Color(0xFFFFFFFF);
 
-///failure
+  ///failure
   static const Color failure = Color(0xFFBD0404);
   static const Color flag = Color(0xFFC50303);
+
+  ///success
+  static const Color success = Color(0xFF49A84D);
+
+  //success
 
   ///gray
   static const Color gray900 = Color(0xFF1A2632); // Very dark blue-grey
@@ -34,9 +39,8 @@ class AppColors {
   static const Color gray200 = Color(0xFFE2E8ED); // Very light blue-grey
   static const Color gray100 = Color(0xFFF0F4F8); // Extremely light blue-grey
 
-  
   /// Text Colors
-  static const Color  textColor1 = Color(0xFF444655);
+  static const Color textColor1 = Color(0xFF444655);
   static const Color textColor2 = Color(0xFF747687);
   static const Color textColor3 = Color(0xFF3958A8);
   static const Color textColor4 = Color(0xFFFFFFFF);

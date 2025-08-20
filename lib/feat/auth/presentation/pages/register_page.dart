@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oneplus_app/core/core.dart';
-import 'package:oneplus_app/test_page.dart';
+import 'package:oneplus_app/feat/home/presentation/pages/home_page.dart';
 import '../controller/register_controller.dart';
 import '../provider/auth_provider.dart';
 
@@ -96,7 +96,7 @@ class RegisterPage extends ConsumerWidget {
                       AppMethods.dismissLoaderDialog(context);
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return const TestPage();
+                        return const HomePage();
                       }));
                     });
                   },
