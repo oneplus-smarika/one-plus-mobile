@@ -17,6 +17,19 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
+  String? fromCity;
+  String? toCity;
+
+  final cities = [
+    "Kathmandu",
+    "Pokhara",
+    "Biratnagar",
+    "Butwal",
+    "Chitwan",
+    "Dharan",
+    "Nepalgunj",
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,35 +76,92 @@ class _HomePageState extends ConsumerState<HomePage> {
         child: ListView(
           children: [
             /// Promo Card
-            AdsWidget(),
+            const AdsWidget(),
             AppSpacing.verticalSpaceLarge,
 
             /// From - To Section
             Row(
               children: [
                 Expanded(
-                  child: ReusableButton(
-                    borderRadiusCust: BorderRadius.circular(12),
-                    borderColor: AppColors.gray400,
-                    backgroundColor: AppColors.cardColor,
-                    textColor: AppColors.gray900,
-                    btnIcon: SvgPicture.asset(AppAssets.busIcon),
-                    text: 'Going from?',
-                    onPressed: () {},
+                  child: DropdownButtonFormField<String>(
+                    value: fromCity,
+                    decoration: InputDecoration(
+                      prefixIcon: SvgPicture.asset(
+                        AppAssets.busIcon,
+                        fit: BoxFit.scaleDown,
+                      ),
+                      hintText: "Going from",
+                      hintStyle: TextStyle(
+                        color: AppColors.gray400,
+                        fontSize: 11,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: const BorderSide(color: AppColors.gray400),
+                      ),
+                      filled: true,
+                      fillColor: AppColors.white,
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 8,
+                        horizontal: 8,
+                      ),
+                    ),
+                    items:
+                        cities
+                            .map(
+                              (city) => DropdownMenuItem(
+                                value: city,
+                                child: CText(city),
+                              ),
+                            )
+                            .toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        fromCity = value;
+                      });
+                    },
                   ),
                 ),
-                AppSpacing.horizontalSpaceSmall,
                 SvgPicture.asset(AppAssets.backForthIcon),
-                AppSpacing.horizontalSpaceSmall,
+
                 Expanded(
-                  child: ReusableButton(
-                    borderRadiusCust: BorderRadius.circular(12),
-                    borderColor: AppColors.gray400,
-                    backgroundColor: AppColors.cardColor,
-                    textColor: AppColors.gray900,
-                    btnIcon: SvgPicture.asset(AppAssets.busIcon),
-                    text: 'Going to?',
-                    onPressed: () {},
+                  child: DropdownButtonFormField<String>(
+                    value: toCity,
+                    decoration: InputDecoration(
+                      prefixIcon: SvgPicture.asset(
+                        AppAssets.busIcon,
+                        fit: BoxFit.scaleDown,
+                      ),
+                      hintText: "Going to",
+                      hintStyle: TextStyle(
+                        color: AppColors.gray400,
+                        fontSize: 11,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: const BorderSide(color: AppColors.gray400),
+                      ),
+                      filled: true,
+                      fillColor: AppColors.cardColor,
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 8,
+                        horizontal: 8,
+                      ),
+                    ),
+                    items:
+                        cities
+                            .map(
+                              (city) => DropdownMenuItem(
+                                value: city,
+                                child: CText(city),
+                              ),
+                            )
+                            .toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        toCity = value;
+                      });
+                    },
                   ),
                 ),
               ],
@@ -99,7 +169,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             AppSpacing.verticalSpaceLarge,
 
             /// Date Place Picker & Search
-            DatePlaceSelectWidget(),
+            const DatePlaceSelectWidget(),
 
             /// Bus Cards
             ListView.builder(
