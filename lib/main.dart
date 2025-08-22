@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const SplashScreen(),
-      // home: const HomePage(),
+      // home: const SplashScreen(),
+      home: const HomePage(),
       routes: {'/welcome': (context) => const WelcomePage()},
     );
   }
