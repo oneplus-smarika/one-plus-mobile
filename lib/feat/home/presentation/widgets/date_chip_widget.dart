@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/widgets/text/custom_text.dart';
+import 'package:oneplus_app/core/core.dart';
 
 class DateChipWidget extends StatelessWidget {
   final String day;
@@ -16,29 +15,24 @@ class DateChipWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Chip(
-      backgroundColor: isSelected ? AppColors.mainColor : AppColors.white,
-      avatar:
-          isSelected
-              ? const Icon(
-                Icons.calendar_month,
-                color: AppColors.white,
-                size: 30,
-              )
-              : null,
+  return Chip(
+      backgroundColor:AppColors.white,
+      side: BorderSide(
+        color: isSelected ? AppColors.mainColor : AppColors.gray200,
+      ),
       label: Padding(
         padding: const EdgeInsets.all(4.0),
         child: Column(
           children: [
             CText(
               "$day ",
-              color: isSelected ? AppColors.white : AppColors.gray700,
-              type: TextType.bodyLarge,
+              color: AppColors.gray700,
+              type: TextType.bodyMedium,
             ),
             CText(
               month,
-              color: isSelected ? AppColors.white : AppColors.gray700,
-              type: TextType.bodyLarge,
+              color:  AppColors.gray700,
+              type: TextType.bodyMedium,
             ),
           ],
         ),

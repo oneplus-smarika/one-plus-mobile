@@ -16,48 +16,60 @@ class DatePlaceSelectWidget extends StatefulWidget {
 
 class _DatePlaceSelectWidgetState extends State<DatePlaceSelectWidget> {
   final List<Map<String, dynamic>> dateList = [
-    {"day": "12", "month": "Aug", "isSelected": false},
+    {"day": "12", "month": "Aug", "isSelected": true},
     {"day": "13", "month": "Aug", "isSelected": false},
     {"day": "14", "month": "Aug", "isSelected": false},
-    {"day": "07", "month": "June", "isSelected": true},
+    {"day": "15", "month": "Aug", "isSelected": false},
+    {"day": "16", "month": "Aug", "isSelected": false},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 70,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: dateList.length,
-                  itemBuilder: (context, index) {
-                    final date = dateList[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 8),
-                      child: DateChipWidget(
-                        day: date["day"],
-                        month: date["month"],
-                        isSelected: date["isSelected"],
-                      ),
-                    );
-                  },
+        Column(
+          children: [
+            Row(
+              children: [
+                SizedBox(
+                  height: 60,
+                  width: 260,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: dateList.length,
+                    itemBuilder: (context, index) {
+                      final date = dateList[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: DateChipWidget(
+                          day: date["day"],
+                          month: date["month"],
+                          isSelected: date["isSelected"],
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
-              AppSpacing.verticalSpaceMedium,
-              ReusableButton(
-                btnIcon: const Icon(Icons.search, color: AppColors.white),
-                text: "Search Buses",
-                onPressed: () {},
-              ),
-            ],
-          ),
+                AppSpacing.horizontalSpaceSmall,
+                ReusableButton(
+                  height: 60,
+                  width: 110,
+                  text: "Sep",
+                  btnIcon: Icon(Icons.calendar_month, color: AppColors.white),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+            AppSpacing.verticalSpaceMedium,
+            ReusableButton(
+              btnIcon: const Icon(Icons.search, color: AppColors.white),
+              text: "Search Buses",
+              onPressed: () {},
+            ),
+          ],
         ),
-        AppSpacing.verticalSpaceVeryLarge,
+        AppSpacing.verticalSpaceLarge,
+        AppSpacing.verticalSpaceSmall,
 
         /// Title Section
         Padding(
@@ -69,42 +81,39 @@ class _DatePlaceSelectWidgetState extends State<DatePlaceSelectWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CText(
-                    "Kathmandu to Biratnagar",
+                    "Available Routes for Today",
                     type: TextType.titleLarge,
                     color: AppColors.gray900,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w400,
                   ),
                   CText(
-                    "20th June",
-                    type: TextType.bodyLarge,
-                    color: AppColors.gray900,
+                    "20th Sep",
+                    type: TextType.titleMedium,
+                    color: AppColors.gray700,
+                    fontWeight: FontWeight.w400,
                   ),
                 ],
               ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: AppColors.cardColor,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: AppColors.gray700),
-                ),
-                child: Row(
-                  spacing: 4,
+              AppSpacing.horizontalSpaceSmall,
+              Chip(
+                label: Row(
                   children: [
                     SvgPicture.asset(AppAssets.resetLogo, height: 16),
+                    AppSpacing.horizontalSpaceSmall,
                     CText(
                       "Reset",
-
                       type: TextType.bodyMedium,
-                      color: AppColors.mainColor,
+                      color: AppColors.gray700,
                     ),
                   ],
                 ),
+                backgroundColor: AppColors.cardColor,
+                side: const BorderSide(color: AppColors.gray300),
               ),
             ],
           ),
         ),
-        AppSpacing.verticalSpaceAverage,
+        AppSpacing.verticalSpaceSmall,
       ],
     );
   }

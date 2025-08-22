@@ -70,4 +70,24 @@ class AppColors {
     textColor2,
     textColor3,
   ];
+  static ({
+  Color iconColor,
+  Color textColor,
+  Color containerColor,
+  Color borderColor,
+  })
+  getColors(bool showingImage) {
+    return (
+    iconColor: showingImage ? AppColors.white : AppColors.gray800,
+    textColor: showingImage ? AppColors.white : AppColors.gray800,
+    containerColor:
+    showingImage
+        ? Colors.black12.withValues(alpha: 0.2)
+        : AppColors.gray100.withValues(alpha: 0.9),
+    borderColor:
+    showingImage
+        ? AppColors.white.withValues(alpha: 0.3)
+        : AppColors.gray300.withValues(alpha: 0.5),
+    );
+  }
 }

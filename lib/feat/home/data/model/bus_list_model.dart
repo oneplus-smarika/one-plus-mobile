@@ -33,7 +33,7 @@ final List<BusModel> busList = [
     arrival: "BIR 5:00 AM",
   ),
   BusModel(
-    busName: "Smarika Yatayat",
+    busName: "Smarika Yatayat Nepal Express",
     busType: "Night Bus",
     price: "NPR 1,750",
     seatsLeft: "37 Seats Left",

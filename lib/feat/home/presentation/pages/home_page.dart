@@ -1,99 +1,126 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:oneplus_app/core/core.dart';
+import 'package:oneplus_app/feat/home/presentation/pages/notification_page.dart';
 import 'package:oneplus_app/feat/home/presentation/widgets/ads_widget.dart';
 import 'package:oneplus_app/feat/home/presentation/widgets/date_place_select_widget.dart';
 import '../../data/model/bus_list_model.dart';
+import '../provider/nav_provider.dart';
 import '../widgets/bus_card_widget.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(
         backgroundColor: AppColors.white,
-        title: Row(
-          children: [
-            CircleAvatar(backgroundImage: AssetImage(AppAssets.appLogo)),
-            AppSpacing.horizontalSpaceMedium,
-            CText("Bus App Yatayat", type: TextType.titleMedium),
-          ],
+        leading: CircleAvatar(
+          radius: 36,
+          backgroundColor: AppColors.white,
+          backgroundImage: AssetImage(AppAssets.appLogo),
+        ),
+        title: CText(
+          "OnePlus Yatayat App",
+          type: TextType.headlineSmall,
+          textAlign: TextAlign.left,
         ),
         actions: [
-          Icon(Icons.person_outline, color: AppColors.mainColor, size: 32),
-          AppSpacing.horizontalSpaceAverage,
+          GestureDetector(
+            onTap: () {
+              ref.read(navigationProvider.notifier).navigate(3);
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const NotificationPage();
+                  },
+                ),
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SvgPicture.asset(
+                AppAssets.notifyIcon,
+                height: 32,
+                width: 32,
+              ),
+            ),
+          ),
         ],
       ),
-      body: ListView(
-        children: [
-          /// Promo Card
-          AdsWidget(),
-          AppSpacing.verticalSpaceLarge,
+      body: Padding(
+        padding: EdgeInsets.all(AppSpacing.pagePadding),
+        child: ListView(
+          children: [
+            /// Promo Card
+            AdsWidget(),
+            AppSpacing.verticalSpaceLarge,
 
-          /// From - To Section
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
+            /// From - To Section
+            Row(
               children: [
                 Expanded(
                   child: ReusableButton(
                     borderRadiusCust: BorderRadius.circular(12),
-                    borderColor: AppColors.gray300,
+                    borderColor: AppColors.gray400,
                     backgroundColor: AppColors.cardColor,
                     textColor: AppColors.gray900,
-                    btnIcon: const Icon(Icons.location_on),
-                    text: 'Kathmandu',
+                    btnIcon: SvgPicture.asset(AppAssets.busIcon),
+                    text: 'Going from?',
                     onPressed: () {},
                   ),
                 ),
                 AppSpacing.horizontalSpaceSmall,
-                const Icon(Icons.swap_horiz, color: AppColors.gray700),
+                SvgPicture.asset(AppAssets.backForthIcon),
                 AppSpacing.horizontalSpaceSmall,
                 Expanded(
                   child: ReusableButton(
                     borderRadiusCust: BorderRadius.circular(12),
-                    borderColor: AppColors.gray300,
+                    borderColor: AppColors.gray400,
                     backgroundColor: AppColors.cardColor,
                     textColor: AppColors.gray900,
-                    btnIcon: const Icon(Icons.location_on),
-                    text: 'Biratnagar',
+                    btnIcon: SvgPicture.asset(AppAssets.busIcon),
+                    text: 'Going to?',
                     onPressed: () {},
                   ),
                 ),
               ],
             ),
-          ),
-          AppSpacing.verticalSpaceMedium,
+            AppSpacing.verticalSpaceLarge,
 
-          /// Date Place Picker & Search
-          DatePlaceSelectWidget(),
+            /// Date Place Picker & Search
+            DatePlaceSelectWidget(),
 
-          /// Bus Cards
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            // so it scrolls with parent ListView
-            itemCount: busList.length,
-            itemBuilder: (context, index) {
-              final bus = busList[index];
-              return BusCard(
-                busName: bus.busName,
-                busType: bus.busType,
-                price: bus.price,
-                seatsLeft: bus.seatsLeft,
-                departure: bus.departure,
-                arrival: bus.arrival,
-              );
-            },
-          ),
-        ],
+            /// Bus Cards
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              // so it scrolls with parent ListView
+              itemCount: busList.length,
+              itemBuilder: (context, index) {
+                final bus = busList[index];
+                return BusCard(
+                  busName: bus.busName,
+                  busType: bus.busType,
+                  price: bus.price,
+                  seatsLeft: bus.seatsLeft,
+                  departure: bus.departure,
+                  arrival: bus.arrival,
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
