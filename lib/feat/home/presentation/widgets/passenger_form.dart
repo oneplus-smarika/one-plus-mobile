@@ -23,7 +23,7 @@ class PassengerForm extends ConsumerWidget {
     });
 
     return Card(
-      color: AppColors.white,
+      color: AppColors.cardColor,
       margin: const EdgeInsets.symmetric(vertical: 8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
