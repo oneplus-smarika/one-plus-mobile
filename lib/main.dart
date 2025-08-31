@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oneplus_app/feat/home/presentation/pages/home_page.dart';
-import 'feat/auth/presentation/pages/splash_screen.dart';
 import 'feat/auth/presentation/pages/welcome_page.dart';
 
 void main() {

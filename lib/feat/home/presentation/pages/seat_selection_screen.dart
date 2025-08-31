@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oneplus_app/core/core.dart';
+import 'package:oneplus_app/feat/home/presentation/pages/passenger_details_screen.dart';
 import 'package:shitead/shitead.dart';
 
 class SeatSelectionScreen extends StatefulWidget {
@@ -211,7 +212,16 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                       ReusableButton(
                         text: "Continue to Passenger Details",
                         width: double.infinity,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PassengerDetailsPage(
+                                selectedSeats: selectedSeats.map((s) => s.seatNumber).toList(),
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
