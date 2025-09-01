@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oneplus_app/core/core.dart';
+import 'package:oneplus_app/feat/home/presentation/pages/payment_page.dart';
 import '../controller/passenger_details_controller.dart';
+import '../controller/passenger_form_controller.dart';
 import '../widgets/passenger_form.dart';
 
 class PassengerDetailsPage extends ConsumerStatefulWidget {
@@ -257,14 +259,87 @@ class _PassengerDetailsPageState extends ConsumerState<PassengerDetailsPage> {
                 text: "Continue to Payment",
                 width: double.infinity,
                 onPressed: () {
-                  // TODO: Save details + Navigate to Payment
+                  // Validate and collect passenger details
+                  if (_validatePassengerDetails()) {
+                    final passengerDetails = _collectPassengerDetails();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PaymentPage(
+                          selectedSeats: widget.selectedSeats,
+                          passengerDetails: passengerDetails,
+                          route: "Kathmandu to Biratnagar",
+                          departureTime: "KTM 5:00 PM",
+                          arrivalTime: "BIR 6:00 AM",
+                          date: "20th June",
+                        ),
+                      ),
+                    );
+
+                  }
                 },
               ),
+
             ],
           ),
         ),
       )
           : const SizedBox(),
     );
+  }
+
+
+
+  bool _validatePassengerDetails() {
+    // Add your validation logic here
+    for (int i = 0; i < widget.selectedSeats.length; i++) {
+      final formProvider = ref.read(passengerFormProvider(widget.selectedSeats[i]));
+
+      if (formProvider['name'].text.isEmpty ||
+          formProvider['age'].text.isEmpty ||
+          formProvider['contact'].text.isEmpty ||
+          formProvider['gender'] == null) {
+
+        // Show validation error
+        AppMethods.showCustomSnackBar(context: context, message:'Please fill all required fields for Passenger ${i + 1}' );
+
+        return false;
+      }
+
+      // Validate age
+      final age = int.tryParse(formProvider['age'].text);
+      if (age == null || age < 1 || age > 100) {
+        AppMethods.showCustomSnackBar(context: context, message:'Please enter a valid age between 1 and 100' );
+
+        return false;
+      }
+
+      // Validate contact number (basic validation)
+      if (formProvider['contact'].text.length < 10) {
+        AppMethods.showCustomSnackBar(context: context, message:'Please enter a valid contact number');
+
+        return false;
+      }
+    }
+    return true;
+  }
+
+  List<Map<String, dynamic>> _collectPassengerDetails() {
+    List<Map<String, dynamic>> details = [];
+
+    for (int i = 0; i < widget.selectedSeats.length; i++) {
+      final formProvider = ref.read(passengerFormProvider(widget.selectedSeats[i]));
+
+      details.add({
+        'name': formProvider['name'].text.trim(),
+        'age': formProvider['age'].text.trim(),
+        'gender': formProvider['gender'],
+        'contact': formProvider['contact'].text.trim(),
+        'emergencyContact': formProvider['emergencyContact'].text.trim(),
+        'seatNumber': widget.selectedSeats[i],
+      });
+    }
+
+    return details;
   }
 }

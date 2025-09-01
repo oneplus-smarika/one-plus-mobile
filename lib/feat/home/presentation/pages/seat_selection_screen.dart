@@ -125,7 +125,7 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                         // reserved seats
                         unavailableSeats: ["seat_20"],
                         // already selected by user
-                        initialSelectedSeats: ["seat_5"],
+                        initialSelectedSeats: [],
                         onSeatSelectionChanged: (seats) {
                           setState(() {
                             selectedSeats = seats;

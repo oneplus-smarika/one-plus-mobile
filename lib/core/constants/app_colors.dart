@@ -26,6 +26,8 @@ class AppColors {
 
   ///success
   static const Color success = Color(0xFF49A84D);
+  static const Color orange = Color(0xF5FF8000);
+  static const Color orangeLight = Color(0xF5FAF1E1);
 
   //success
 
