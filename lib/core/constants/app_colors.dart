@@ -51,7 +51,7 @@ class AppColors {
   static const Color hintTextColor = gray500; // Color(0xFF7B8A99)
 
   /// Utility Colors
-  static const Color white = Color(0xFFFFFFFF);
+  static const Color  white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
 
   /// Gradient

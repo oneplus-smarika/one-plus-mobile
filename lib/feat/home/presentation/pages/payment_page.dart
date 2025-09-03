@@ -344,6 +344,10 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
                             widget.selectedSeats,
                             widget.passengerDetails,
                             eSewaNumberController,
+                            widget.route,
+                            widget.departureTime,
+                            widget.arrivalTime,
+                            widget.date,
                           )
                           : null,
                   backgroundColor:

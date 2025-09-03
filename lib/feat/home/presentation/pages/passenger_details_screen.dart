@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oneplus_app/core/core.dart';
 import 'package:oneplus_app/feat/home/presentation/pages/payment_page.dart';
+import 'package:oneplus_app/feat/home/presentation/widgets/important_notes.dart';
 import '../controller/passenger_details_controller.dart';
 import '../controller/passenger_form_controller.dart';
 import '../widgets/passenger_form.dart';
@@ -143,47 +144,7 @@ class _PassengerDetailsPageState extends ConsumerState<PassengerDetailsPage> {
           }),
 
           AppSpacing.verticalSpaceLarge,
-
-          /// Important Notes
-          Container(
-            padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              color: Colors.lightBlue[50],
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CText(
-                  "Important Notes",
-                  color: Colors.blue[900],
-                  type: TextType.titleLarge,
-                  fontWeight: FontWeight.w600,
-                ),
-                AppSpacing.verticalSpaceSmall,
-                CText(
-                  "• Please carry a valid ID proof during travel",
-                  type: TextType.bodyLarge,
-                  color: Colors.blue[900],
-                ),
-                CText(
-                  "• Names should match exactly with your ID documents",
-                  type: TextType.bodyLarge,
-                  color: Colors.blue[900],
-                ),
-                CText(
-                  "• Contact number will be used for booking confirmations",
-                  type: TextType.bodyLarge,
-                  color: Colors.blue[900],
-                ),
-                CText(
-                  "• Emergency contact is recommended for safety purposes",
-                  type: TextType.bodyLarge,
-                  color: Colors.blue[900],
-                ),
-              ],
-            ),
-          ),
+          ImportantNotes(),
 
           AppSpacing.verticalSpaceLarge,
         ],

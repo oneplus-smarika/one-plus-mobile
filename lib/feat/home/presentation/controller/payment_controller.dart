@@ -5,6 +5,9 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/utils/ui_helpers/app_spacing.dart';
 import '../../../../core/widgets/forms/cust_text_field.dart';
 import '../../../../core/widgets/text/custom_text.dart';
+import 'dart:math';
+
+import '../pages/payment_success_page.dart';
 
 enum PaymentMethod { esewa, qrCode, reserveOnly }
 
@@ -26,7 +29,7 @@ class PaymentState {
   }) {
     return PaymentState(
       selectedPaymentMethod:
-          selectedPaymentMethod ?? this.selectedPaymentMethod,
+      selectedPaymentMethod ?? this.selectedPaymentMethod,
       isProcessing: isProcessing ?? this.isProcessing,
       error: error ?? this.error,
     );
@@ -34,8 +37,8 @@ class PaymentState {
 }
 
 final paymentProvider = StateNotifierProvider<PaymentController, PaymentState>((
-  ref,
-) {
+    ref,
+    ) {
   return PaymentController();
 });
 
@@ -46,98 +49,306 @@ class PaymentController extends StateNotifier<PaymentState> {
     state = state.copyWith(selectedPaymentMethod: method, error: null);
   }
 
+  String _generateBookingId() {
+    final random = Random();
+    final timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+    final randomNumbers = List.generate(4, (index) => random.nextInt(10)).join();
+    return 'BUS$timestamp$randomNumbers';
+  }
+
   Future<void> processPayment(
-    BuildContext context,
-    List<String> selectedSeats,
-    List<Map<String, dynamic>> passengerDetails,
-    TextEditingController eSewaController,
-  ) async {
+      BuildContext context,
+      List<String> selectedSeats,
+      List<Map<String, dynamic>> passengerDetails,
+      TextEditingController eSewaController,
+      String route,
+      String departureTime,
+      String arrivalTime,
+      String date,
+      ) async {
     if (state.selectedPaymentMethod == null) return;
+
+    // Validate eSewa number if eSewa is selected
+    if (state.selectedPaymentMethod == PaymentMethod.esewa &&
+        eSewaController.text.trim().isEmpty) {
+      state = state.copyWith(error: "Please enter your eSewa number");
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text("Please enter your eSewa number"),
+            backgroundColor: AppColors.failure,
+          ),
+        );
+      }
+      return;
+    }
 
     state = state.copyWith(isProcessing: true, error: null);
 
     try {
+      // Simulate API call delay
       await Future.delayed(const Duration(seconds: 2));
+
+      final bookingId = _generateBookingId();
+      final transactionDate = DateTime.now();
+
+      double amountPaid;
+      String paymentMethodString;
 
       switch (state.selectedPaymentMethod!) {
         case PaymentMethod.esewa:
+          amountPaid = selectedSeats.length * 2800.0;
+          paymentMethodString = "eSewa";
           await _processESewaPayment(
             context,
             selectedSeats,
             passengerDetails,
             eSewaController.text,
+            route,
+            departureTime,
+            arrivalTime,
+            date,
+            bookingId,
+            amountPaid,
+            paymentMethodString,
+            transactionDate,
           );
           break;
         case PaymentMethod.qrCode:
-          await _processQRPayment(context, selectedSeats, passengerDetails);
+          amountPaid = selectedSeats.length * 2800.0;
+          paymentMethodString = "QR Code";
+          await _processQRPayment(
+            context,
+            selectedSeats,
+            passengerDetails,
+            route,
+            departureTime,
+            arrivalTime,
+            date,
+            bookingId,
+            amountPaid,
+            paymentMethodString,
+            transactionDate,
+          );
           break;
         case PaymentMethod.reserveOnly:
-          await _processReservation(context, selectedSeats, passengerDetails);
+          amountPaid = 100.0; // Only booking fee
+          paymentMethodString = "Reserve Only";
+          await _processReservation(
+            context,
+            selectedSeats,
+            passengerDetails,
+            route,
+            departureTime,
+            arrivalTime,
+            date,
+            bookingId,
+            amountPaid,
+            paymentMethodString,
+            transactionDate,
+          );
           break;
       }
     } catch (e) {
       state = state.copyWith(isProcessing: false, error: e.toString());
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Payment failed: ${e.toString()}"),
+            backgroundColor: AppColors.failure,
+          ),
+        );
+      }
     }
   }
 
   Future<void> _processESewaPayment(
-    BuildContext context,
-    List<String> selectedSeats,
-    List<Map<String, dynamic>> passengerDetails,
-    String eSewaNumber,
-  ) async {
+      BuildContext context,
+      List<String> selectedSeats,
+      List<Map<String, dynamic>> passengerDetails,
+      String eSewaNumber,
+      String route,
+      String departureTime,
+      String arrivalTime,
+      String date,
+      String bookingId,
+      double amountPaid,
+      String paymentMethod,
+      DateTime transactionDate,
+      ) async {
+    // Simulate eSewa API call
     await Future.delayed(const Duration(seconds: 1));
 
-    final result = await Container();
+    // In a real app, you would integrate with eSewa API here
+    // For demo purposes, we'll assume success
+    final success = true; // This would come from eSewa API response
 
-    if (result == true) {
+    if (success) {
       state = state.copyWith(isProcessing: false);
-    } else {
-      state = state.copyWith(isProcessing: false);
+      if (context.mounted) {
+        _navigateToSuccess(
+          context,
+          bookingId,
+          selectedSeats,
+          passengerDetails,
+          route,
+          departureTime,
+          arrivalTime,
+          date,
+          paymentMethod,
+          amountPaid,
+          transactionDate,
+        );
+      }
+    } else
+    {
+      state = state.copyWith(
+          isProcessing: false,
+          error: "eSewa payment failed"
+      );
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("eSewa payment failed"),
+            backgroundColor: AppColors.failure,
+          ),
+        );
+      }
     }
   }
 
   Future<void> _processQRPayment(
-    BuildContext context,
-    List<String> selectedSeats,
-    List<Map<String, dynamic>> passengerDetails,
-  ) async {
+      BuildContext context,
+      List<String> selectedSeats,
+      List<Map<String, dynamic>> passengerDetails,
+      String route,
+      String departureTime,
+      String arrivalTime,
+      String date,
+      String bookingId,
+      double amountPaid,
+      String paymentMethod,
+      DateTime transactionDate,
+      ) async {
+    // Simulate QR payment processing
     await Future.delayed(const Duration(seconds: 1));
 
-    final result = await Container();
+    // In a real app, you would generate QR code and wait for payment confirmation
+    final success = true; // This would come from payment gateway
 
-    if (result == true) {
+    if (success) {
       state = state.copyWith(isProcessing: false);
+      if (context.mounted) {
+        _navigateToSuccess(
+          context,
+          bookingId,
+          selectedSeats,
+          passengerDetails,
+          route,
+          departureTime,
+          arrivalTime,
+          date,
+          paymentMethod,
+          amountPaid,
+          transactionDate,
+        );
+      }
     } else {
-      state = state.copyWith(isProcessing: false);
+      state = state.copyWith(
+          isProcessing: false,
+          error: "QR payment failed"
+      );
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("QR payment failed"),
+            backgroundColor: AppColors.failure,
+          ),
+        );
+      }
     }
   }
 
   Future<void> _processReservation(
-    BuildContext context,
-    List<String> selectedSeats,
-    List<Map<String, dynamic>> passengerDetails,
-  ) async {
+      BuildContext context,
+      List<String> selectedSeats,
+      List<Map<String, dynamic>> passengerDetails,
+      String route,
+      String departureTime,
+      String arrivalTime,
+      String date,
+      String bookingId,
+      double amountPaid,
+      String paymentMethod,
+      DateTime transactionDate,
+      ) async {
+    // Simulate reservation processing
     await Future.delayed(const Duration(seconds: 1));
 
     state = state.copyWith(isProcessing: false);
+    if (context.mounted) {
+      _navigateToSuccess(
+        context,
+        bookingId,
+        selectedSeats,
+        passengerDetails,
+        route,
+        departureTime,
+        arrivalTime,
+        date,
+        paymentMethod,
+        amountPaid,
+        transactionDate,
+      );
+    }
+  }
+
+  void _navigateToSuccess(
+      BuildContext context,
+      String bookingId,
+      List<String> selectedSeats,
+      List<Map<String, dynamic>> passengerDetails,
+      String route,
+      String departureTime,
+      String arrivalTime,
+      String date,
+      String paymentMethod,
+      double amountPaid,
+      DateTime transactionDate,
+      ) {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => PaymentSuccessPage(
+          bookingId: bookingId,
+          selectedSeats: selectedSeats,
+          passengerDetails: passengerDetails,
+          route: route,
+          departureTime: departureTime,
+          arrivalTime: arrivalTime,
+          date: date,
+          paymentMethod: paymentMethod,
+          amountPaid: amountPaid,
+          transactionDate: transactionDate,
+        ),
+      ),
+    );
   }
 
   Widget buildESewaOption(
-    PaymentState paymentState,
-    TextEditingController controller,
-  ) {
+      PaymentState paymentState,
+      TextEditingController controller,
+      ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color:
-              paymentState.selectedPaymentMethod == PaymentMethod.esewa
-                  ? AppColors.mainColor
-                  : AppColors.gray300,
+          paymentState.selectedPaymentMethod == PaymentMethod.esewa
+              ? AppColors.mainColor
+              : AppColors.gray300,
           width:
-              paymentState.selectedPaymentMethod == PaymentMethod.esewa ? 2 : 1,
+          paymentState.selectedPaymentMethod == PaymentMethod.esewa ? 2 : 1,
         ),
       ),
       child: Column(
@@ -229,13 +440,13 @@ class PaymentController extends StateNotifier<PaymentState> {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color:
-              paymentState.selectedPaymentMethod == PaymentMethod.qrCode
-                  ? AppColors.mainColor
-                  : AppColors.gray300,
+          paymentState.selectedPaymentMethod == PaymentMethod.qrCode
+              ? AppColors.mainColor
+              : AppColors.gray300,
           width:
-              paymentState.selectedPaymentMethod == PaymentMethod.qrCode
-                  ? 2
-                  : 1,
+          paymentState.selectedPaymentMethod == PaymentMethod.qrCode
+              ? 2
+              : 1,
         ),
       ),
       child: Column(
@@ -338,13 +549,13 @@ class PaymentController extends StateNotifier<PaymentState> {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color:
-              paymentState.selectedPaymentMethod == PaymentMethod.reserveOnly
-                  ? AppColors.mainColor
-                  : AppColors.gray300,
+          paymentState.selectedPaymentMethod == PaymentMethod.reserveOnly
+              ? AppColors.mainColor
+              : AppColors.gray300,
           width:
-              paymentState.selectedPaymentMethod == PaymentMethod.reserveOnly
-                  ? 2
-                  : 1,
+          paymentState.selectedPaymentMethod == PaymentMethod.reserveOnly
+              ? 2
+              : 1,
         ),
       ),
       child: Column(
@@ -396,7 +607,7 @@ class PaymentController extends StateNotifier<PaymentState> {
           if (paymentState.selectedPaymentMethod ==
               PaymentMethod.reserveOnly) ...[
             const Divider(color: AppColors.gray300),
-            ReservationTerms(),
+            const ReservationTerms(),
           ],
         ],
       ),
@@ -407,7 +618,6 @@ class PaymentController extends StateNotifier<PaymentState> {
     state = PaymentState();
   }
 }
-
 class QRCodePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
