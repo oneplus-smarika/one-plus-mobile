@@ -36,10 +36,16 @@ class _HomePageState extends ConsumerState<HomePage> {
       backgroundColor: AppColors.white,
       appBar: AppBar(
         backgroundColor: AppColors.white,
-        leading: CircleAvatar(
-          radius: 36,
-          backgroundColor: AppColors.white,
-          backgroundImage: AssetImage(AppAssets.appLogo),
+        leading: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: CircleAvatar(
+            radius: 36,
+            backgroundColor: AppColors.gray200,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(AppAssets.onePlusLogo),
+            )
+          ),
         ),
         title: CText(
           "OnePlus Yatayat App",

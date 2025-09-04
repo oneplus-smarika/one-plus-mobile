@@ -4,7 +4,17 @@ import 'package:oneplus_app/feat/home/presentation/pages/passenger_details_scree
 import 'package:shitead/shitead.dart';
 
 class SeatSelectionScreen extends StatefulWidget {
-  const SeatSelectionScreen({super.key});
+  final String busName;
+  final String departureTime;
+  final String arrivalTime;
+  final String price;
+
+
+  const SeatSelectionScreen({super.key,      required this.busName,
+    required this.departureTime,
+    required this.arrivalTime,
+    required this.price,
+  });
 
   @override
   State<SeatSelectionScreen> createState() => _SeatSelectionScreenState();
@@ -45,8 +55,8 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                                 type: TextType.headlineSmall,
                                 textAlign: TextAlign.left,
                               ),
-                              const CText(
-                                "One Plus Yatayat",
+                             CText(
+                                widget.busName,
                                 type: TextType.titleMedium,
                               ),
                             ],
@@ -65,7 +75,7 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                           ),
                           AppSpacing.horizontalSpaceTiny,
                           CText(
-                            "Kathmandu to Biratnagar",
+                            "Route",
                             type: TextType.titleLarge,
                             color: AppColors.black,
                             fontWeight: FontWeight.w400,
@@ -86,8 +96,8 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
 
                       Row(
                         children: [
-                          const CText(
-                            "KTM 5:00 PM",
+                        CText(
+                            widget.departureTime,
                             type: TextType.bodyLarge,
                             color: AppColors.black,
                           ),
@@ -98,8 +108,8 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                             size: 16,
                           ),
                           AppSpacing.horizontalSpaceTiny,
-                          const CText(
-                            "BRT 5:00 PM",
+                           CText(
+                            widget.arrivalTime,
                             type: TextType.bodyLarge,
                             color: AppColors.black,
                           ),

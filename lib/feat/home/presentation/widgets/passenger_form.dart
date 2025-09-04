@@ -81,6 +81,7 @@ class PassengerForm extends ConsumerWidget {
                       AppSpacing.verticalSpaceTiny,
                       CustTextField(
                         controller: controller.ageController,
+                        hintText: "Enter age",
                         keyboardType: TextInputType.number,
                         suffixIcon: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -129,6 +130,7 @@ class PassengerForm extends ConsumerWidget {
                       CustDropDown<String>(
                         labelText: "Gender *",
                         hintText: "Select",
+                        borderColor: AppColors.gray400,
                         value: controller.gender,
                         items:
                             ["Male", "Female", "Other"]

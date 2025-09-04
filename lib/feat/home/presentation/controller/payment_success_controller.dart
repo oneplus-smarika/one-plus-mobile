@@ -87,7 +87,6 @@ class PaymentSuccessController extends StateNotifier<PaymentSuccessState> {
     final formatter = DateFormat('dd/MM/yyyy, hh:mm:ss a');
     return formatter.format(dateTime);
   }
-
   String getPaymentMethodDisplay() {
     switch (state.data.paymentMethod.toLowerCase()) {
       case 'esewa':

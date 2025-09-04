@@ -28,7 +28,11 @@ class BusCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) {
-              return const SeatSelectionScreen();
+              return  SeatSelectionScreen(busName:busName,
+                departureTime: departure,
+                arrivalTime: arrival,
+                price: price,
+              );
             },
           ),
         );

@@ -51,8 +51,14 @@ class AppColors {
   static const Color hintTextColor = gray500; // Color(0xFF7B8A99)
 
   /// Utility Colors
-  static const Color  white = Color(0xFFFFFFFF);
+  static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
+
+  /// Logo Colors
+  static const Color logoRed = Color(0xFFE53935); // Red from "1"
+  static const Color logoGreen = Color(0xFF8BC34A); // Green border
+  static const Color logoBlue = Color(0xFF1E88E5); // Blue border
+  static const Color logoBlack = Color(0xFF212121); // Plus sign
 
   /// Gradient
   static const LinearGradient mainGradient = LinearGradient(
@@ -72,24 +78,25 @@ class AppColors {
     textColor2,
     textColor3,
   ];
+
   static ({
-  Color iconColor,
-  Color textColor,
-  Color containerColor,
-  Color borderColor,
+    Color iconColor,
+    Color textColor,
+    Color containerColor,
+    Color borderColor,
   })
   getColors(bool showingImage) {
     return (
-    iconColor: showingImage ? AppColors.white : AppColors.gray800,
-    textColor: showingImage ? AppColors.white : AppColors.gray800,
-    containerColor:
-    showingImage
-        ? Colors.black12.withValues(alpha: 0.2)
-        : AppColors.gray100.withValues(alpha: 0.9),
-    borderColor:
-    showingImage
-        ? AppColors.white.withValues(alpha: 0.3)
-        : AppColors.gray300.withValues(alpha: 0.5),
+      iconColor: showingImage ? AppColors.white : AppColors.gray800,
+      textColor: showingImage ? AppColors.white : AppColors.gray800,
+      containerColor:
+          showingImage
+              ? Colors.black12.withValues(alpha: 0.2)
+              : AppColors.gray100.withValues(alpha: 0.9),
+      borderColor:
+          showingImage
+              ? AppColors.white.withValues(alpha: 0.3)
+              : AppColors.gray300.withValues(alpha: 0.5),
     );
   }
 }
