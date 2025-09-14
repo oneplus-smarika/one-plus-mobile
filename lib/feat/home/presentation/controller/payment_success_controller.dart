@@ -129,7 +129,6 @@ class PaymentSuccessController extends StateNotifier<PaymentSuccessState> {
     try {
       state = state.copyWith(isLoading: true);
 
-      await Future.delayed(const Duration(milliseconds: 500));
 
       state = state.copyWith(isLoading: false);
     } catch (e) {
@@ -144,7 +143,6 @@ class PaymentSuccessController extends StateNotifier<PaymentSuccessState> {
     try {
       state = state.copyWith(isLoading: true);
 
-      await Future.delayed(const Duration(milliseconds: 500));
 
       state = state.copyWith(isLoading: false);
     } catch (e) {
@@ -159,7 +157,6 @@ class PaymentSuccessController extends StateNotifier<PaymentSuccessState> {
     try {
       state = state.copyWith(isLoading: true);
 
-      await Future.delayed(const Duration(milliseconds: 500));
 
       state = state.copyWith(isLoading: false);
     } catch (e) {

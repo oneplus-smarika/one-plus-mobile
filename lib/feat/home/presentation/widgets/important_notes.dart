@@ -26,22 +26,18 @@ class ImportantNotes extends StatelessWidget {
             "Important Notes",
             type: TextType.titleLarge,
             fontWeight: FontWeight.bold,
-            color: AppColors.mainColor, // Darker blue for text
+            color: AppColors.mainColor,
           ),
           AppSpacing.verticalSpaceLarge,
-
           _buildInstructionItem(
             "Please carry a valid ID proof during travel",
           ),
-
           _buildInstructionItem(
             "Names should match exactly with your ID documents",
           ),
-
           _buildInstructionItem(
             "Contact number will be used for booking confirmations",
           ),
-
           _buildInstructionItem(
             "Emergency contact is recommended for safety purposes",
             isLast: true,

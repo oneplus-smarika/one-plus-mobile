@@ -87,7 +87,6 @@ class PaymentController extends StateNotifier<PaymentState> {
 
     try {
       // Simulate API call delay
-      await Future.delayed(const Duration(seconds: 2));
 
       final bookingId = _generateBookingId();
       final transactionDate = DateTime.now();
@@ -177,10 +176,6 @@ class PaymentController extends StateNotifier<PaymentState> {
       DateTime transactionDate,
       ) async {
     // Simulate eSewa API call
-    await Future.delayed(const Duration(seconds: 1));
-
-    // In a real app, you would integrate with eSewa API here
-    // For demo purposes, we'll assume success
     final success = true; // This would come from eSewa API response
 
     if (success) {
@@ -200,20 +195,6 @@ class PaymentController extends StateNotifier<PaymentState> {
           transactionDate,
         );
       }
-    } else
-    {
-      state = state.copyWith(
-          isProcessing: false,
-          error: "eSewa payment failed"
-      );
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("eSewa payment failed"),
-            backgroundColor: AppColors.failure,
-          ),
-        );
-      }
     }
   }
 
@@ -230,11 +211,8 @@ class PaymentController extends StateNotifier<PaymentState> {
       String paymentMethod,
       DateTime transactionDate,
       ) async {
-    // Simulate QR payment processing
-    await Future.delayed(const Duration(seconds: 1));
 
-    // In a real app, you would generate QR code and wait for payment confirmation
-    final success = true; // This would come from payment gateway
+    final success = true;
 
     if (success) {
       state = state.copyWith(isProcessing: false);
@@ -253,19 +231,6 @@ class PaymentController extends StateNotifier<PaymentState> {
           transactionDate,
         );
       }
-    } else {
-      state = state.copyWith(
-          isProcessing: false,
-          error: "QR payment failed"
-      );
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("QR payment failed"),
-            backgroundColor: AppColors.failure,
-          ),
-        );
-      }
     }
   }
 
@@ -282,8 +247,6 @@ class PaymentController extends StateNotifier<PaymentState> {
       String paymentMethod,
       DateTime transactionDate,
       ) async {
-    // Simulate reservation processing
-    await Future.delayed(const Duration(seconds: 1));
 
     state = state.copyWith(isProcessing: false);
     if (context.mounted) {

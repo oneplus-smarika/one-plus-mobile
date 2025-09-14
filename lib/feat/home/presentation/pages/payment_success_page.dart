@@ -59,7 +59,6 @@ class PaymentSuccessPage extends ConsumerWidget {
     final state = ref.watch(paymentSuccessControllerProvider(_paymentData));
     final isReservation = controller.isReservation;
 
-    // Listen for errors and show snackbar
     ref.listen(paymentSuccessControllerProvider(_paymentData), (previous, next) {
       if (next.errorMessage != null) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -78,9 +77,7 @@ class PaymentSuccessPage extends ConsumerWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // Success/Reservation Header
               _buildHeader(controller, isReservation),
-
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(

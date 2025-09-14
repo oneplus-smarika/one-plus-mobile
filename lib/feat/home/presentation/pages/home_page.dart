@@ -6,6 +6,7 @@ import 'package:oneplus_app/feat/home/presentation/pages/notification_page.dart'
 import 'package:oneplus_app/feat/home/presentation/widgets/ads_widget.dart';
 import 'package:oneplus_app/feat/home/presentation/widgets/date_place_select_widget.dart';
 import '../../data/model/bus_list_model.dart';
+import '../../data/model/cities_list_model.dart';
 import '../provider/nav_provider.dart';
 import '../widgets/bus_card_widget.dart';
 
@@ -20,15 +21,6 @@ class _HomePageState extends ConsumerState<HomePage> {
   String? fromCity;
   String? toCity;
 
-  final cities = [
-    "Kathmandu",
-    "Pokhara",
-    "Biratnagar",
-    "Butwal",
-    "Chitwan",
-    "Dharan",
-    "Nepalgunj",
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +32,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           padding: const EdgeInsets.all(4.0),
           child: CircleAvatar(
             radius: 36,
-            backgroundColor: AppColors.gray200,
+            backgroundColor: AppColors.white,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Image.asset(AppAssets.onePlusLogo),
@@ -81,15 +73,14 @@ class _HomePageState extends ConsumerState<HomePage> {
         padding: EdgeInsets.all(AppSpacing.pagePadding),
         child: ListView(
           children: [
-            /// Promo Card
             const AdsWidget(),
             AppSpacing.verticalSpaceLarge,
 
-            /// From - To Section
             Row(
               children: [
                 Expanded(
                   child: DropdownButtonFormField<String>(
+                    dropdownColor: AppColors.white,
                     value: fromCity,
                     decoration: InputDecoration(
                       prefixIcon: SvgPicture.asset(
@@ -112,12 +103,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                         horizontal: 8,
                       ),
                     ),
+                    isExpanded: true,
                     items:
                         cities
                             .map(
                               (city) => DropdownMenuItem(
                                 value: city,
-                                child: CText(city),
+                                child: CText(city,  ),
                               ),
                             )
                             .toList(),
@@ -128,10 +120,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                     },
                   ),
                 ),
-                SvgPicture.asset(AppAssets.backForthIcon),
-
+                AppSpacing.horizontalSpaceSmall,
+                SvgPicture.asset(AppAssets.backForthIcon, height: 24),
+                AppSpacing.horizontalSpaceSmall,
                 Expanded(
                   child: DropdownButtonFormField<String>(
+                    dropdownColor: AppColors.white,
                     value: toCity,
                     decoration: InputDecoration(
                       prefixIcon: SvgPicture.asset(
@@ -154,6 +148,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         horizontal: 8,
                       ),
                     ),
+                    isExpanded: true,
                     items:
                         cities
                             .map(
@@ -174,10 +169,8 @@ class _HomePageState extends ConsumerState<HomePage> {
             ),
             AppSpacing.verticalSpaceLarge,
 
-            /// Date Place Picker & Search
             const DatePlaceSelectWidget(),
 
-            /// Bus Cards
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),

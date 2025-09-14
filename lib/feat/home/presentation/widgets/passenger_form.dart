@@ -61,7 +61,6 @@ class PassengerForm extends ConsumerWidget {
             ),
             AppSpacing.verticalSpaceMedium,
 
-            /// Full Name
             CText("Full Name *", type: TextType.titleMedium),
             AppSpacing.verticalSpaceTiny,
             CustTextField(
@@ -70,7 +69,6 @@ class PassengerForm extends ConsumerWidget {
             ),
             AppSpacing.verticalSpaceMedium,
 
-            /// Age + Gender Row
             Row(
               children: [
                 Expanded(
@@ -153,10 +151,7 @@ class PassengerForm extends ConsumerWidget {
                 ),
               ],
             ),
-
             AppSpacing.verticalSpaceMedium,
-
-            /// Contact Number
             CText("Contact Number *", type: TextType.titleMedium),
             AppSpacing.verticalSpaceTiny,
             CustTextField(
@@ -172,7 +167,6 @@ class PassengerForm extends ConsumerWidget {
               hintText: "+977 98XXXXXXXX",
               keyboardType: TextInputType.phone,
             ),
-
             AppSpacing.verticalSpaceMedium,
           ],
         ),

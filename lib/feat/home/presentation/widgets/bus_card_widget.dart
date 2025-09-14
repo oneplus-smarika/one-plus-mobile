@@ -40,17 +40,17 @@ class BusCard extends StatelessWidget {
 
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Chip(
-          backgroundColor: AppColors.cardColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color:AppColors.cardColor,
+            borderRadius: BorderRadius.circular(12)
           ),
-          label: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                /// Bus Title & Price
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -99,8 +99,6 @@ class BusCard extends StatelessWidget {
                     ),
                   ],
                 ),
-
-                /// Timing
                 Row(
                   children: [
                     Chip(
@@ -123,8 +121,6 @@ class BusCard extends StatelessWidget {
                   ],
                 ),
                 AppSpacing.verticalSpaceSmall,
-
-                /// Features & Button
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

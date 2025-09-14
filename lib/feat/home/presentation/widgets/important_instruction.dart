@@ -29,15 +29,12 @@ class ImportantInstruction extends StatelessWidget {
             color: AppColors.mainColor,
           ),
           AppSpacing.verticalSpaceLarge,
-
           _buildInstructionItem(
             "Please arrive at the departure point 30 minutes before scheduled time",
           ),
-
           _buildInstructionItem(
             "Carry a valid photo ID proof during travel",
           ),
-
           _buildInstructionItem(
             "Keep this booking confirmation for reference",
           ),

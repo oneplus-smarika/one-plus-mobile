@@ -56,12 +56,10 @@ class RegisterPage extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(12.0),
                   isExpanded: true,
                   value: gender,
-                  items:
-                      ['Female', 'Male', 'Other']
-                          .map(
-                            (e) => DropdownMenuItem(value: e, child: Text(e)),
-                          )
-                          .toList(),
+                  hint: const CText('Select Gender'),
+                  items: ['Female', 'Male', 'Other']
+                      .map((e) => DropdownMenuItem(value: e, child: CText(e)))
+                      .toList(),
                   onChanged: (value) {
                     if (value != null) controller.updateGender(value);
                   },

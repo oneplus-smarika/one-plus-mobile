@@ -68,7 +68,6 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
             Divider(color: AppColors.gray300),
             AppSpacing.verticalSpaceSmall,
 
-            // Bus Info Section
             Row(
               children: [
                 Container(
@@ -133,7 +132,6 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
             ),
             AppSpacing.verticalSpaceSmall,
 
-            // Time Info
             Row(
               children: [
                 CText(
@@ -157,7 +155,6 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
             ),
             AppSpacing.verticalSpaceSmall,
 
-            // Seats Info
             Row(
               children: [
                 const CText(
@@ -166,33 +163,30 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
                   color: AppColors.gray700,
                 ),
                 AppSpacing.horizontalSpaceSmall,
-                ...widget.selectedSeats
-                    .map(
-                      (seat) => Padding(
-                        padding: const EdgeInsets.only(right: 8),
-                        child: Chip(
-                          label: CText(
-                            seat,
-                            type: TextType.bodySmall,
-                            color: AppColors.gray700,
-                          ),
-                          backgroundColor: AppColors.white,
-                          side: const BorderSide(color: AppColors.gray300),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 4,
-                            vertical: 2,
-                          ),
-                        ),
+                ...widget.selectedSeats.map(
+                  (seat) => Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: Chip(
+                      label: CText(
+                        seat,
+                        type: TextType.bodySmall,
+                        color: AppColors.gray700,
                       ),
-                    )
-                    .toList(),
+                      backgroundColor: AppColors.white,
+                      side: const BorderSide(color: AppColors.gray300),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 4,
+                        vertical: 2,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
 
             Divider(color: AppColors.gray300),
             AppSpacing.verticalSpaceMedium,
 
-            // Passengers Section
             const CText(
               "Passengers",
               type: TextType.titleLarge,
@@ -220,7 +214,7 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
                   ],
                 ),
               );
-            }).toList(),
+            }),
 
             AppSpacing.verticalSpaceLarge,
 
@@ -232,21 +226,17 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
             ),
             AppSpacing.verticalSpaceMedium,
 
-            // eSewa Payment Option
             paymentController.buildESewaOption(
               paymentState,
               eSewaNumberController,
             ),
 
-            // QR Code Payment Option
             paymentController.buildQRCodeOption(paymentState),
 
-            // Reserve Only Option
             paymentController.buildReservationOption(paymentState),
 
             AppSpacing.verticalSpaceLarge,
 
-            // Price Breakdown
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
@@ -279,7 +269,6 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
                     ],
                   ),
 
-                  // Show booking fee for Reserve Only
                   if (paymentState.selectedPaymentMethod ==
                       PaymentMethod.reserveOnly) ...[
                     AppSpacing.verticalSpaceSmall,

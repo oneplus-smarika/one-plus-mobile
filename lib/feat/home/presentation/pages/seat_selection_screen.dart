@@ -80,7 +80,7 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                             color: AppColors.black,
                             fontWeight: FontWeight.w400,
                           ),
-                          const Spacer(),
+                          Spacer(),
                           Chip(
                             label: CText(
                               "20th Sep",
