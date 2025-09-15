@@ -22,8 +22,8 @@ class RegisterPage extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
-                  AppAssets.appLogo,
-                  height: 250,
+                  AppAssets.onePlusLogo,
+                  height:70,
                   alignment: Alignment.center,
                   fit: BoxFit.contain,
                 ),

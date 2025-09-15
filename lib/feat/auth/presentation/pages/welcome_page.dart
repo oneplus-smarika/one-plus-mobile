@@ -19,7 +19,8 @@ class WelcomePage extends ConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(AppAssets.appLogo,height:250, fit: BoxFit.contain),
+              Image.asset(AppAssets.onePlusLogo,         height:70, fit: BoxFit.contain),
+              AppSpacing.verticalSpaceMedium,
               const CText('Welcome from,', type: TextType.bodyLarge),
               const CText('Bus App Yatayat', type: TextType.titleLarge),
               AppSpacing.verticalSpaceLarge,

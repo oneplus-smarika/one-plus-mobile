@@ -113,12 +113,14 @@ class AppThemes {
     ),
 
     // Card Theme
-    cardTheme: CardTheme(
-      color: AppColors.cardColor2,
+
+    cardTheme: const CardThemeData(
+      color:  AppColors.cardColor2,
+      surfaceTintColor:  AppColors.cardColor2,
       elevation: 2,
+      shadowColor:  AppColors.cardColor2,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+          borderRadius: BorderRadius.all(Radius.circular(12))),
     ),
 
     // Input Decoration Theme
@@ -141,13 +143,13 @@ class AppThemes {
     ),
 
     // Dialog Theme
-    dialogTheme: DialogTheme(
-      backgroundColor: AppColors.cardColor2,
-      titleTextStyle: TextStyle(
-        color: AppColors.textColor1,
-        fontSize: 20,
-        fontWeight: FontWeight.w600,
-      ),
-    ),
+    // dialogTheme: DialogTheme(
+    //     backgroundColor: AppColors.cardColor2,
+    //   titleTextStyle: TextStyle(
+    //     color: AppColors.textColor1,
+    //     fontSize: 20,
+    //     fontWeight: FontWeight.w600,
+    //   ),
+    // ),
   );
 }

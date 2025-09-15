@@ -29,7 +29,7 @@ class OtpController {
       // Navigate to next screen or perform success action here
     } else {
       ref.read(otpVerificationStateProvider.notifier).state = false;
-      AppMethods.showCustomSnackBar(context: context, message: 'Invalid OTP');
+      AppMethods.showCustomSnackBar(context: context, message: 'The valid OTP  is 123456');
     }
   }
 }

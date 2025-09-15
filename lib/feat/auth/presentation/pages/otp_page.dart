@@ -19,8 +19,8 @@ class OtpPage extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              AppAssets.appLogo,
-              height: 250,
+              AppAssets.onePlusLogo,
+              height:70,
               alignment: Alignment.center,
               fit: BoxFit.contain,
             ),

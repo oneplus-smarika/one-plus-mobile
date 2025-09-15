@@ -20,6 +20,8 @@ class HomePage extends ConsumerStatefulWidget {
 class _HomePageState extends ConsumerState<HomePage> {
   String? fromCity;
   String? toCity;
+  String selectedDate = "Select Date";
+
 
 
   @override
@@ -169,7 +171,16 @@ class _HomePageState extends ConsumerState<HomePage> {
             ),
             AppSpacing.verticalSpaceLarge,
 
-            const DatePlaceSelectWidget(),
+            DatePlaceSelectWidget(
+              fromCity: fromCity,
+              toCity: toCity,
+              onDateSelected: (date) {
+                setState(() {
+                  selectedDate = date;
+                });
+              },
+            ),
+
 
             ListView.builder(
               shrinkWrap: true,

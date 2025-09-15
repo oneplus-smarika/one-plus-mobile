@@ -7,6 +7,7 @@ import '../../../../core/widgets/buttons/reusable_buttons.dart';
 import '../../../../core/widgets/text/custom_text.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../controller/payment_success_controller.dart';
+import 'home_page.dart';
 
 class PaymentSuccessPage extends ConsumerWidget {
   final String bookingId;
@@ -642,7 +643,7 @@ class PaymentSuccessPage extends ConsumerWidget {
           text: "Back to Home",
           width: double.infinity,
           onPressed: () {
-            Navigator.of(context).popUntil((route) => route.isFirst);
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
           },
           btnIcon: const Icon(Icons.home_outlined, color: AppColors.white),
           backgroundColor: AppColors.mainColor,

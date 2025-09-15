@@ -66,7 +66,7 @@ class RegisterController {
   }
 }
 
-final registerControllerProvider = Provider.autoDispose((ref) {
+final registerControllerProvider = Provider((ref) {
   final controller = RegisterController(ref);
   // Ensure controllers are disposed when the provider is destroyed
   ref.onDispose(() => controller.reset());
