@@ -28,7 +28,7 @@ class CustDropDown<T> extends StatelessWidget {
   final String Function(T?)? displayBuilder; // Add displayBuilder
 
   const CustDropDown({
-    Key? key,
+    super.key,
     this.labelText,
     this.hintText,
     this.isEnabled = true,
@@ -53,7 +53,7 @@ class CustDropDown<T> extends StatelessWidget {
     this.backgroundColor,
     this.dropdownColor,
     this.displayBuilder,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -70,42 +70,39 @@ class CustDropDown<T> extends StatelessWidget {
           ButtonTheme(
             alignedDropdown: true, // This reduces the dropdown padding
             child: DropdownButtonFormField<T>(
-              value: value,
-
-
+              initialValue: value,
 
               // Customize the display of the selected item
-              selectedItemBuilder: displayBuilder != null
-                  ? (context) => items!.map((item) {
-                return Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    displayBuilder!(item.value),
-                    style: const TextStyle(fontSize: 14),
-                  ),
-                );
-              }).toList()
-                  : null,
+              selectedItemBuilder:
+                  displayBuilder != null
+                      ? (context) =>
+                          items!.map((item) {
+                            return Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                displayBuilder!(item.value),
+                                style: const TextStyle(fontSize: 14),
+                              ),
+                            );
+                          }).toList()
+                      : null,
 
-
-              items: items?.map((item) {
-                return DropdownMenuItem<T>(
-                  value: item.value,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                    // Adjust menu item padding
-                    child: item.child,
-                  ),
-                );
-              }).toList(),
+              items:
+                  items?.map((item) {
+                    return DropdownMenuItem<T>(
+                      value: item.value,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                        // Adjust menu item padding
+                        child: item.child,
+                      ),
+                    );
+                  }).toList(),
               onChanged: isEnabled ? onChanged : null,
               validator: validator,
               menuMaxHeight: 300,
               // Maximum height of the dropdown menu
-              icon: const Icon(
-                Icons.keyboard_arrow_down,
-                weight: 10,
-              ),
+              icon: const Icon(Icons.keyboard_arrow_down, weight: 10),
               iconSize: 12,
               elevation: 2,
               style: TextStyle(
@@ -134,11 +131,12 @@ class CustDropDown<T> extends StatelessWidget {
                   color: AppColors.textColor3,
                   fontSize: labelFontSize ?? 13,
                 ),
-                filled: true,
+                // filled: true,
                 fillColor: backgroundColor ?? AppColors.gray100,
-                floatingLabelBehavior: isFLoatingLabel
-                    ? FloatingLabelBehavior.always
-                    : FloatingLabelBehavior.never,
+                floatingLabelBehavior:
+                    isFLoatingLabel
+                        ? FloatingLabelBehavior.always
+                        : FloatingLabelBehavior.never,
                 errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(borderRadius ?? 12),
                   borderSide: BorderSide(
@@ -174,12 +172,10 @@ class CustDropDown<T> extends StatelessWidget {
                     color: borderColor ?? AppColors.gray200,
                   ),
                 ),
-                prefixIcon: prefixIcon != null
-                    ? SizedBox.square(
-                        dimension: 18,
-                        child: prefixIcon,
-                      )
-                    : null,
+                prefixIcon:
+                    prefixIcon != null
+                        ? SizedBox.square(dimension: 18, child: prefixIcon)
+                        : null,
               ),
             ),
           ),

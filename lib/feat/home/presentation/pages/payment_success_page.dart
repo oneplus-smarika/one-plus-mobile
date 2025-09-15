@@ -56,11 +56,16 @@ class PaymentSuccessPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.watch(paymentSuccessControllerProvider(_paymentData).notifier);
+    final controller = ref.watch(
+      paymentSuccessControllerProvider(_paymentData).notifier,
+    );
     final state = ref.watch(paymentSuccessControllerProvider(_paymentData));
     final isReservation = controller.isReservation;
 
-    ref.listen(paymentSuccessControllerProvider(_paymentData), (previous, next) {
+    ref.listen(paymentSuccessControllerProvider(_paymentData), (
+      previous,
+      next,
+    ) {
       if (next.errorMessage != null) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -74,66 +79,82 @@ class PaymentSuccessPage extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: AppColors.white,
+      appBar: AppBar(
+        toolbarHeight: 0,
+        backgroundColor:
+            isReservation ? const Color(0xFFFF4500) : AppColors.success,
+      ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              _buildHeader(controller, isReservation),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppSpacing.verticalSpaceMedium,
+        child: Column(
+          children: [
+            _buildHeader(controller, isReservation),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppSpacing.verticalSpaceMedium,
 
-                    // Booking Confirmed/Reserved Card
-                    _buildConfirmationCard(context, controller, isReservation),
+                      // Booking Confirmed/Reserved Card
+                      _buildConfirmationCard(
+                        context,
+                        controller,
+                        isReservation,
+                      ),
 
-                    // Payment Required Alert (Only for reservations)
-                    if (isReservation) ...[
+                      // Payment Required Alert (Only for reservations)
+                      if (isReservation) ...[
+                        AppSpacing.verticalSpaceLarge,
+                        _buildPaymentRequiredAlert(controller),
+                      ],
+
                       AppSpacing.verticalSpaceLarge,
-                      _buildPaymentRequiredAlert(controller),
-                    ],
 
-                    AppSpacing.verticalSpaceLarge,
+                      // Trip Details Card
+                      _buildTripDetailsCard(controller),
 
-                    // Trip Details Card
-                    _buildTripDetailsCard(controller),
-
-                    AppSpacing.verticalSpaceLarge,
-
-                    // Seat Information Card
-                    _buildSeatInformationCard(controller, isReservation),
-
-                    AppSpacing.verticalSpaceLarge,
-
-                    // Passengers Card
-                    _buildPassengersCard(),
-
-                    AppSpacing.verticalSpaceLarge,
-
-                    // Payment Details Card
-                    _buildPaymentDetailsCard(controller, isReservation),
-
-                    // Payment Instructions (Only for reservations)
-                    if (isReservation) ...[
                       AppSpacing.verticalSpaceLarge,
-                      _buildPaymentInstructions(),
+
+                      // Seat Information Card
+                      _buildSeatInformationCard(controller, isReservation),
+
+                      AppSpacing.verticalSpaceLarge,
+
+                      // Passengers Card
+                      _buildPassengersCard(),
+
+                      AppSpacing.verticalSpaceLarge,
+
+                      // Payment Details Card
+                      _buildPaymentDetailsCard(controller, isReservation),
+
+                      // Payment Instructions (Only for reservations)
+                      if (isReservation) ...[
+                        AppSpacing.verticalSpaceLarge,
+                        _buildPaymentInstructions(),
+                      ],
+
+                      AppSpacing.verticalSpaceLarge,
+                      if (!isReservation) ImportantInstruction(),
+                      AppSpacing.verticalSpaceLarge,
+
+                      // Action Buttons
+                      _buildActionButtons(
+                        context,
+                        controller,
+                        isReservation,
+                        state.isLoading,
+                      ),
+
+                      AppSpacing.verticalSpaceVeryLarge,
                     ],
-
-                    AppSpacing.verticalSpaceLarge,
-                    if (!isReservation) ImportantInstruction(),
-                    AppSpacing.verticalSpaceLarge,
-
-                    // Action Buttons
-                    _buildActionButtons(context, controller, isReservation, state.isLoading),
-
-                    AppSpacing.verticalSpaceVeryLarge,
-                  ],
+                  ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -142,7 +163,7 @@ class PaymentSuccessPage extends ConsumerWidget {
   Widget _buildHeader(PaymentSuccessController controller, bool isReservation) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(40),
+      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 30),
       decoration: BoxDecoration(
         color: isReservation ? const Color(0xFFFF4500) : AppColors.success,
         borderRadius: const BorderRadius.only(
@@ -161,7 +182,8 @@ class PaymentSuccessPage extends ConsumerWidget {
             ),
             child: Icon(
               isReservation ? Icons.access_time : Icons.check,
-              color: isReservation ? const Color(0xFFFF4500) : AppColors.success,
+              color:
+                  isReservation ? const Color(0xFFFF4500) : AppColors.success,
               size: 40,
             ),
           ),
@@ -184,22 +206,24 @@ class PaymentSuccessPage extends ConsumerWidget {
   }
 
   Widget _buildConfirmationCard(
-      BuildContext context,
-      PaymentSuccessController controller,
-      bool isReservation,
-      ) {
+    BuildContext context,
+    PaymentSuccessController controller,
+    bool isReservation,
+  ) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: isReservation
-            ? const Color(0xFFFFF4E6)
-            : AppColors.success.withOpacity(0.1),
+        color:
+            isReservation
+                ? const Color(0xFFFFF4E6)
+                : AppColors.success.withOpacity(0.1),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: isReservation
-              ? const Color(0xFFFFB366)
-              : AppColors.success.withOpacity(0.3),
+          color:
+              isReservation
+                  ? const Color(0xFFFFB366)
+                  : AppColors.success.withOpacity(0.3),
         ),
       ),
       child: Column(
@@ -207,9 +231,7 @@ class PaymentSuccessPage extends ConsumerWidget {
           CText(
             controller.confirmationTitle,
             type: TextType.titleLarge,
-            color: isReservation
-                ? const Color(0xFFB8860B)
-                : AppColors.success,
+            color: isReservation ? const Color(0xFFB8860B) : AppColors.success,
             fontWeight: FontWeight.bold,
           ),
           AppSpacing.verticalSpaceSmall,
@@ -219,9 +241,10 @@ class PaymentSuccessPage extends ConsumerWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: const Text("Booking ID copied to clipboard"),
-                  backgroundColor: isReservation
-                      ? const Color(0xFFFF4500)
-                      : AppColors.success,
+                  backgroundColor:
+                      isReservation
+                          ? const Color(0xFFFF4500)
+                          : AppColors.success,
                 ),
               );
             },
@@ -249,7 +272,9 @@ class PaymentSuccessPage extends ConsumerWidget {
           ),
           AppSpacing.verticalSpaceSmall,
           CText(
-            isReservation ? "Reserved" : "Save this booking ID for future reference",
+            isReservation
+                ? "Reserved"
+                : "Save this booking ID for future reference",
             type: TextType.bodyMedium,
             color: isReservation ? const Color(0xFFB8860B) : AppColors.success,
           ),
@@ -281,7 +306,11 @@ class PaymentSuccessPage extends ConsumerWidget {
         children: [
           Row(
             children: [
-              const Icon(Icons.warning_amber, color: Color(0xFFDC143C), size: 20),
+              const Icon(
+                Icons.warning_amber,
+                color: Color(0xFFDC143C),
+                size: 20,
+              ),
               AppSpacing.horizontalSpaceSmall,
               const CText(
                 "Payment Required",
@@ -325,7 +354,11 @@ class PaymentSuccessPage extends ConsumerWidget {
         children: [
           Row(
             children: [
-              const Icon(Icons.location_on, color: AppColors.mainColor, size: 20),
+              const Icon(
+                Icons.location_on,
+                color: AppColors.mainColor,
+                size: 20,
+              ),
               AppSpacing.horizontalSpaceSmall,
               const CText(
                 "Trip Details",
@@ -336,14 +369,17 @@ class PaymentSuccessPage extends ConsumerWidget {
           ),
           AppSpacing.verticalSpaceLarge,
           ...tripDetails.map(
-                (detail) => _buildDetailRow(detail['label']!, detail['value']!),
+            (detail) => _buildDetailRow(detail['label']!, detail['value']!),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildSeatInformationCard(PaymentSuccessController controller, bool isReservation) {
+  Widget _buildSeatInformationCard(
+    PaymentSuccessController controller,
+    bool isReservation,
+  ) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(16),
@@ -364,21 +400,25 @@ class PaymentSuccessPage extends ConsumerWidget {
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: selectedSeats
-                .map(
-                  (seat) => Chip(
-                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                label: CText(
-                  "Seat $seat",
-                  type: TextType.bodyMedium,
-                  color: AppColors.mainColor,
-                  fontWeight: FontWeight.w500,
-                ),
-                backgroundColor: AppColors.cardColor,
-                side: const BorderSide(color: AppColors.gray300),
-              ),
-            )
-                .toList(),
+            children:
+                selectedSeats
+                    .map(
+                      (seat) => Chip(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 2,
+                        ),
+                        label: CText(
+                          "Seat $seat",
+                          type: TextType.bodyMedium,
+                          color: AppColors.mainColor,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        backgroundColor: AppColors.cardColor,
+                        side: const BorderSide(color: AppColors.gray300),
+                      ),
+                    )
+                    .toList(),
           ),
           AppSpacing.verticalSpaceSmall,
           CText(
@@ -441,7 +481,11 @@ class PaymentSuccessPage extends ConsumerWidget {
                           AppSpacing.verticalSpaceTiny,
                           Row(
                             children: [
-                              const Icon(Icons.phone, size: 14, color: AppColors.gray600),
+                              const Icon(
+                                Icons.phone,
+                                size: 14,
+                                color: AppColors.gray600,
+                              ),
                               AppSpacing.horizontalSpaceTiny,
                               CText(
                                 passenger['phone'],
@@ -455,7 +499,10 @@ class PaymentSuccessPage extends ConsumerWidget {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: AppColors.gray200,
                       borderRadius: BorderRadius.circular(8),
@@ -469,13 +516,16 @@ class PaymentSuccessPage extends ConsumerWidget {
                 ],
               ),
             );
-          }).toList(),
+          }),
         ],
       ),
     );
   }
 
-  Widget _buildPaymentDetailsCard(PaymentSuccessController controller, bool isReservation) {
+  Widget _buildPaymentDetailsCard(
+    PaymentSuccessController controller,
+    bool isReservation,
+  ) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(16),
@@ -511,7 +561,10 @@ class PaymentSuccessPage extends ConsumerWidget {
               valueColor: AppColors.gray800,
             ),
           ] else ...[
-            _buildDetailRow("Payment Method", controller.getPaymentMethodDisplay()),
+            _buildDetailRow(
+              "Payment Method",
+              controller.getPaymentMethodDisplay(),
+            ),
             _buildDetailRow(
               "Amount Paid",
               controller.formatCurrency(amountPaid),
@@ -530,15 +583,19 @@ class PaymentSuccessPage extends ConsumerWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: isReservation
-                      ? const Color(0xFFFF4500).withOpacity(0.1)
-                      : AppColors.success.withOpacity(0.1),
+                  color:
+                      isReservation
+                          ? const Color(0xFFFF4500).withOpacity(0.1)
+                          : AppColors.success.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: CText(
                   controller.paymentStatusText,
                   type: TextType.bodySmall,
-                  color: isReservation ? const Color(0xFFFF4500) : AppColors.success,
+                  color:
+                      isReservation
+                          ? const Color(0xFFFF4500)
+                          : AppColors.success,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -563,7 +620,10 @@ class PaymentSuccessPage extends ConsumerWidget {
       decoration: BoxDecoration(
         color: AppColors.mainColor.withOpacity(0.05),
         borderRadius: const BorderRadius.all(Radius.circular(16)),
-        border: Border.all(color: AppColors.mainColor.withOpacity(0.2), width: 1),
+        border: Border.all(
+          color: AppColors.mainColor.withOpacity(0.2),
+          width: 1,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -575,18 +635,20 @@ class PaymentSuccessPage extends ConsumerWidget {
             fontWeight: FontWeight.bold,
           ),
           AppSpacing.verticalSpaceMedium,
-          ...instructions.map((instruction) => _buildInstructionItem(instruction)),
+          ...instructions.map(
+            (instruction) => _buildInstructionItem(instruction),
+          ),
         ],
       ),
     );
   }
 
   Widget _buildActionButtons(
-      BuildContext context,
-      PaymentSuccessController controller,
-      bool isReservation,
-      bool isLoading,
-      ) {
+    BuildContext context,
+    PaymentSuccessController controller,
+    bool isReservation,
+    bool isLoading,
+  ) {
     return Column(
       children: [
         Row(
@@ -600,21 +662,25 @@ class PaymentSuccessPage extends ConsumerWidget {
                 isReservation ? Icons.share_outlined : Icons.download_outlined,
                 color: AppColors.gray800,
               ),
-              onPressed: isLoading ? null : () async {
-                if (isReservation) {
-                  await controller.shareBookingDetails();
-                  AppMethods.showCustomSnackBar(
-                    context: context,
-                    message: "Booking details shared successfully",
-                  );
-                } else {
-                  await controller.downloadTicket();
-                  AppMethods.showCustomSnackBar(
-                    context: context,
-                    message: "Ticket download functionality coming soon!",
-                  );
-                }
-              },
+              onPressed:
+                  isLoading
+                      ? null
+                      : () async {
+                        if (isReservation) {
+                          await controller.shareBookingDetails();
+                          AppMethods.showCustomSnackBar(
+                            context: context,
+                            message: "Booking details shared successfully",
+                          );
+                        } else {
+                          await controller.downloadTicket();
+                          AppMethods.showCustomSnackBar(
+                            context: context,
+                            message:
+                                "Ticket download functionality coming soon!",
+                          );
+                        }
+                      },
               backgroundColor: AppColors.white,
               borderColor: AppColors.gray800,
             ),
@@ -623,14 +689,20 @@ class PaymentSuccessPage extends ConsumerWidget {
                 text: "Share Ticket",
                 width: 150,
                 textColor: AppColors.gray800,
-                btnIcon: const Icon(Icons.share_outlined, color: AppColors.gray800),
-                onPressed: isLoading ? null : () async {
-                  await controller.shareTicket();
-                  AppMethods.showCustomSnackBar(
-                    context: context,
-                    message: "Ticket shared successfully",
-                  );
-                },
+                btnIcon: const Icon(
+                  Icons.share_outlined,
+                  color: AppColors.gray800,
+                ),
+                onPressed:
+                    isLoading
+                        ? null
+                        : () async {
+                          await controller.shareTicket();
+                          AppMethods.showCustomSnackBar(
+                            context: context,
+                            message: "Ticket shared successfully",
+                          );
+                        },
                 backgroundColor: AppColors.white,
                 borderColor: AppColors.gray800,
               )
@@ -643,7 +715,10 @@ class PaymentSuccessPage extends ConsumerWidget {
           text: "Back to Home",
           width: double.infinity,
           onPressed: () {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const HomePage()),
+            );
           },
           btnIcon: const Icon(Icons.home_outlined, color: AppColors.white),
           backgroundColor: AppColors.mainColor,
@@ -652,7 +727,6 @@ class PaymentSuccessPage extends ConsumerWidget {
       ],
     );
   }
-
 
   Widget _buildDetailRow(String label, String value, {Color? valueColor}) {
     return Padding(

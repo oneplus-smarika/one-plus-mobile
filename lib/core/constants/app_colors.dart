@@ -48,7 +48,7 @@ class AppColors {
   static const Color textColor3 = Color(0xFF3958A8);
   static const Color textColor4 = Color(0xFFFFFFFF);
   static const Color descTextColor = Color(0xFF231F20);
-  static const Color hintTextColor = gray500; // Color(0xFF7B8A99)
+  static const Color hintTextColor = gray400; // Color(0xFF7B8A99)
 
   /// Utility Colors
   static const Color white = Color(0xFFFFFFFF);

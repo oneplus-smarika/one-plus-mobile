@@ -16,19 +16,29 @@ class WelcomePage extends ConsumerWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),          child: Column(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(AppAssets.onePlusLogo,         height:70, fit: BoxFit.contain),
-              AppSpacing.verticalSpaceMedium,
+              Image.asset(
+                AppAssets.onePlusLogo,
+                height: 70,
+                fit: BoxFit.contain,
+              ),
+              AppSpacing.verticalSpaceLarge,
               const CText('Welcome from,', type: TextType.bodyLarge),
-              const CText('Bus App Yatayat', type: TextType.titleLarge),
+              AppSpacing.verticalSpaceTiny,
+              const CText('OnePlus Yatayat', type: TextType.titleLarge),
+              AppSpacing.verticalSpaceLarge,
               AppSpacing.verticalSpaceLarge,
               CustTextField(
-                headerWidget: const CText("Enter your number", type: TextType.bodyMedium),
+                headerWidget: const CText(
+                  "Enter your number",
+                  type: TextType.bodyMedium,
+                ),
                 keyboardType: TextInputType.phone,
                 controller: phoneController,
-                hintText: '+977 9842467144',
+                hintText: '9800000000',
                 onFieldChanged: (value) {
                   ref.read(phoneProvider.notifier).state = value;
                 },
@@ -38,11 +48,15 @@ class WelcomePage extends ConsumerWidget {
                 text: 'Continue',
                 onPressed: () {
                   if (phoneNumber.isNotEmpty) {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      return const OtpPage();
-                    }));
-                  }
-                  else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const OtpPage();
+                        },
+                      ),
+                    );
+                  } else {
                     AppMethods.showCustomSnackBar(
                       context: context,
                       message: 'Please verify your Phone Number',

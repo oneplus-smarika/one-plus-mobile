@@ -81,47 +81,14 @@ class PassengerForm extends ConsumerWidget {
                         controller: controller.ageController,
                         hintText: "Enter age",
                         keyboardType: TextInputType.number,
-                        suffixIcon: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                int current =
-                                    int.tryParse(
-                                      controller.ageController.text,
-                                    ) ??
-                                    0;
-                                controller.ageController.text =
-                                    (current + 1).toString();
-                              },
-                              child: Icon(Icons.arrow_drop_up, size: 24),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                int current =
-                                    int.tryParse(
-                                      controller.ageController.text,
-                                    ) ??
-                                    0;
-                                if (current > 0) {
-                                  controller.ageController.text =
-                                      (current - 1).toString();
-                                }
-                              },
-                              child: const Icon(
-                                Icons.arrow_drop_down,
-                                size: 24,
-                              ),
-                            ),
-                          ],
-                        ),
                       ),
                     ],
                   ),
                 ),
-                AppSpacing.horizontalSpaceSmall,
+                AppSpacing.horizontalSpaceMedium,
                 Expanded(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CText("Gender *", type: TextType.titleMedium),
                       AppSpacing.verticalSpaceTiny,

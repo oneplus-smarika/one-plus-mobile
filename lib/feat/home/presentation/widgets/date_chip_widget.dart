@@ -15,27 +15,17 @@ class DateChipWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  return Chip(
-      backgroundColor:AppColors.white,
+    return Chip(
+      backgroundColor: AppColors.white,
       side: BorderSide(
         color: isSelected ? AppColors.mainColor : AppColors.gray200,
+        width: isSelected ? 2 : 1,
       ),
-      label: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Column(
-          children: [
-            CText(
-              "$day ",
-              color: AppColors.gray700,
-              type: TextType.bodyMedium,
-            ),
-            CText(
-              month,
-              color:  AppColors.gray700,
-              type: TextType.bodyMedium,
-            ),
-          ],
-        ),
+      label: Column(
+        children: [
+          CText("$day ", color: AppColors.gray700, type: TextType.bodyMedium),
+          CText(month, color: AppColors.gray700, type: TextType.bodyMedium),
+        ],
       ),
     );
   }

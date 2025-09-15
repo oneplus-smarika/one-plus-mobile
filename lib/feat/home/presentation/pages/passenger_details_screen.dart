@@ -41,20 +41,10 @@ class _PassengerDetailsPageState extends ConsumerState<PassengerDetailsPage> {
       backgroundColor: AppColors.white,
       appBar: AppBar(
         backgroundColor: AppColors.white,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CText(
-              "Passenger Details",
-              type: TextType.headlineSmall,
-              textAlign: TextAlign.left,
-            ),
-            CText(
-              "${widget.selectedSeats.length} Passengers",
-              type: TextType.bodyMedium,
-              textAlign: TextAlign.left,
-            ),
-          ],
+        title: CText(
+          "Passenger Details",
+          type: TextType.headlineSmall,
+          textAlign: TextAlign.left,
         ),
         centerTitle: false,
         leading: IconButton(
@@ -78,7 +68,7 @@ class _PassengerDetailsPageState extends ConsumerState<PassengerDetailsPage> {
           }),
 
           AppSpacing.verticalSpaceLarge,
-          ImportantNotes(),
+          // ImportantNotes(),
           AppSpacing.verticalSpaceLarge,
         ],
       ),
@@ -151,18 +141,15 @@ class _PassengerDetailsPageState extends ConsumerState<PassengerDetailsPage> {
             ),
             AppSpacing.horizontalSpaceSmall,
             ...widget.selectedSeats.map(
-              (seat) => Padding(
-                padding: const EdgeInsets.only(right: 4),
-                child: Chip(
-                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                  label: CText(
-                    seat,
-                    type: TextType.bodyMedium,
-                    color: AppColors.gray700,
-                  ),
-                  backgroundColor: AppColors.cardColor,
-                  side: const BorderSide(color: AppColors.gray300),
+              (seat) => Chip(
+                padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                label: CText(
+                  seat,
+                  type: TextType.bodyMedium,
+                  color: AppColors.gray700,
                 ),
+                backgroundColor: AppColors.cardColor,
+                side: const BorderSide(color: AppColors.gray300),
               ),
             ),
           ],

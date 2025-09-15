@@ -33,11 +33,9 @@ class ImportantInstruction extends StatelessWidget {
             "Please arrive at the departure point 30 minutes before scheduled time",
           ),
           _buildInstructionItem(
-            "Carry a valid photo ID proof during travel",
+            "Carry a printout or digital copy of your ticket for verification",
           ),
-          _buildInstructionItem(
-            "Keep this booking confirmation for reference",
-          ),
+          _buildInstructionItem("Keep this booking confirmation for reference"),
 
           _buildInstructionItem(
             "Contact customer support for any changes or cancellations",

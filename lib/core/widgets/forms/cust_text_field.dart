@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../text/custom_text.dart';
 
-
 class CustTextField extends StatelessWidget {
   final String? labelText;
   final String? hintText;
@@ -48,8 +47,8 @@ class CustTextField extends StatelessWidget {
   final Color? backgroundColor;
   final String? errorText; // Added error text property
 
-  const   CustTextField({
-    Key? key,
+  const CustTextField({
+    super.key,
     this.labelText,
     this.hintText,
     this.showCursor = true,
@@ -93,7 +92,7 @@ class CustTextField extends StatelessWidget {
     this.suffixText,
     this.backgroundColor,
     this.errorText, // Added to constructor
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +105,12 @@ class CustTextField extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          headerWidget ?? const SizedBox.shrink(),
+          // headerWidget ?? const SizedBox.shrink(),
+          if (headerWidget != null) ...[
+            headerWidget!,
+            const SizedBox(height: 8),
+          ],
+
           SizedBox(
             child: Row(
               children: [
@@ -147,12 +151,13 @@ class CustTextField extends StatelessWidget {
                         color: AppColors.textColor3,
                         fontSize: labelFontSize ?? 13,
                       ),
-                      filled: true,
-                      fillColor: backgroundColor ?? AppColors.gray100,
-                      floatingLabelBehavior: isFLoatingLabel
-                          ? FloatingLabelBehavior.always
-                          : FloatingLabelBehavior.never,
-                       errorText: errorText, // Added error text to decoration
+                      // filled: true,
+                      // fillColor: AppColors.gray100,
+                      floatingLabelBehavior:
+                          isFLoatingLabel
+                              ? FloatingLabelBehavior.always
+                              : FloatingLabelBehavior.never,
+                      errorText: errorText, // Added error text to decoration
                       errorStyle: const TextStyle(
                         color: Colors.red,
                         fontSize: 12,
@@ -163,18 +168,22 @@ class CustTextField extends StatelessWidget {
                         borderRadius: BorderRadius.circular(borderRadius ?? 12),
                         borderSide: BorderSide(
                           width: 1.0,
-                          color: Colors.red, // Changed error border color to red
+                          color:
+                              Colors.red, // Changed error border color to red
                         ),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(borderRadius ?? 12),
                         borderSide: const BorderSide(
                           width: 1.0,
-                          color: Colors.red, // Changed focused error border color
+                          color:
+                              Colors.red, // Changed focused error border color
                         ),
                       ),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(borderRadius ?? 12.0),
+                        borderRadius: BorderRadius.circular(
+                          borderRadius ?? 12.0,
+                        ),
                         borderSide: BorderSide(
                           width: 1.0,
                           color: borderColor ?? AppColors.gray400,
@@ -182,60 +191,68 @@ class CustTextField extends StatelessWidget {
                       ),
                       counterText: "",
                       enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(borderRadius ?? 12.0),
+                        borderRadius: BorderRadius.circular(
+                          borderRadius ?? 12.0,
+                        ),
                         borderSide: BorderSide(
                           width: 1.0,
                           color: borderColor ?? AppColors.gray400,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(borderRadius ?? 12.0),
+                        borderRadius: BorderRadius.circular(
+                          borderRadius ?? 12.0,
+                        ),
                         borderSide: BorderSide(
-                          width: 1.0,
+                          width: 2.0,
                           color: borderColor ?? AppColors.mainColor,
                         ),
                       ),
                       disabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(borderRadius ?? 12.0),
+                        borderRadius: BorderRadius.circular(
+                          borderRadius ?? 12.0,
+                        ),
                         borderSide: BorderSide(
                           width: 1.0,
                           color: borderColor ?? AppColors.gray400,
                         ),
                       ),
-                      prefixIcon: prefixIcon != null
-                          ? SizedBox.square(
-                        dimension: 18,
-                        child: InkWell(
-                          onTap: onPrefixIconClick,
-                          child: prefixIcon,
-                        ),
-                      )
-                          : null,
-                      suffixIcon: suffixIcon != null
-                          ? SizedBox.square(
-                        dimension: 18,
-                        child: InkWell(
-                          onTap: onSuffixIconClick,
-                          child: suffixIcon,
-                        ),
-                      )
-                          : null,
+                      prefixIcon:
+                          prefixIcon != null
+                              ? SizedBox.square(
+                                dimension: 18,
+                                child: InkWell(
+                                  onTap: onPrefixIconClick,
+                                  child: prefixIcon,
+                                ),
+                              )
+                              : null,
+                      suffixIcon:
+                          suffixIcon != null
+                              ? SizedBox.square(
+                                dimension: 18,
+                                child: InkWell(
+                                  onTap: onSuffixIconClick,
+                                  child: suffixIcon,
+                                ),
+                              )
+                              : null,
                     ),
                     maxLines: maxLines ?? 1,
                   ),
                 ),
                 suffixText != null
                     ? Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: CText(
-                      suffixText ?? '',
-                      color: hintColor,
-                      fontSize: hintFontSize ?? 18,
-                    ),
-                  ),
-                )
+                      flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: CText(
+                          suffixText ?? '',
+                          color: hintColor,
+                          fontSize: hintFontSize ?? 18,
+                        ),
+                      ),
+                    )
                     : const SizedBox.shrink(),
               ],
             ),

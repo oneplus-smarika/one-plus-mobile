@@ -51,8 +51,19 @@ class _DatePlaceSelectWidgetState extends State<DatePlaceSelectWidget> {
 
   String _getMonthAbbreviation(int month) {
     const months = [
-      '', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+      '',
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
     ];
     return months[month];
   }
@@ -71,7 +82,8 @@ class _DatePlaceSelectWidgetState extends State<DatePlaceSelectWidget> {
 
       // Notify parent with formatted date
       final selectedDate = dateList[index]["fullDate"] as DateTime;
-      String formattedDate = "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
+      String formattedDate =
+          "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
       widget.onDateSelected(formattedDate);
     });
   }
@@ -134,14 +146,15 @@ class _DatePlaceSelectWidgetState extends State<DatePlaceSelectWidget> {
                     },
                   ),
                 ),
-                AppSpacing.horizontalSpaceSmall,
+                AppSpacing.horizontalSpaceMedium,
                 Expanded(
                   child: ReusableButton(
                     height: 60,
                     width: 110,
-                    text: selectedDateFromPicker != null
-                        ? "${selectedDateFromPicker!.day}/${selectedDateFromPicker!.month}"
-                        : "Cal",
+                    text:
+                        selectedDateFromPicker != null
+                            ? "${selectedDateFromPicker!.day}/${selectedDateFromPicker!.month}"
+                            : "Date",
                     btnIcon: Icon(Icons.calendar_month, color: AppColors.white),
                     onPressed: () {
                       _showDatePicker();
@@ -150,7 +163,7 @@ class _DatePlaceSelectWidgetState extends State<DatePlaceSelectWidget> {
                 ),
               ],
             ),
-            AppSpacing.verticalSpaceMedium,
+            AppSpacing.verticalSpaceLarge,
 
             ReusableButton(
               btnIcon: const Icon(Icons.search, color: AppColors.white),
@@ -171,20 +184,14 @@ class _DatePlaceSelectWidgetState extends State<DatePlaceSelectWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CText(
-                      (selectedDateIndex == -1 && selectedDateFromPicker == null)
-                          ? "Select a date to view available routes"
+                      (selectedDateIndex == -1 &&
+                              selectedDateFromPicker == null)
+                          ? "Available Routes for Today"
                           : "Available Routes for ${getSelectedDateString()}",
                       type: TextType.titleMedium,
                       color: AppColors.gray900,
                       fontWeight: FontWeight.w400,
                     ),
-                    if (selectedDateIndex != -1 || selectedDateFromPicker != null)
-                      CText(
-                        "Departure: ${widget.fromCity ?? 'Not selected'} → Arrival: ${widget.toCity ?? 'Not selected'}",
-                        type: TextType.bodyMedium,
-                        color: AppColors.gray700,
-                        fontWeight: FontWeight.w400,
-                      ),
                   ],
                 ),
               ),
@@ -285,18 +292,18 @@ class _DatePlaceSelectWidgetState extends State<DatePlaceSelectWidget> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => SearchResultsPage(
-          fromCity: widget.fromCity!,
-          toCity: widget.toCity!,
-          selectedDate: selectedDate,
-        ),
+        builder:
+            (context) => SearchResultsPage(
+              fromCity: widget.fromCity!,
+              toCity: widget.toCity!,
+              selectedDate: selectedDate,
+            ),
       ),
     );
   }
 
   void _showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-
       AppMethods.showCustomSnackBar(context: context, message: message),
     );
   }

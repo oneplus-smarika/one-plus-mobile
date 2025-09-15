@@ -164,20 +164,17 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
                 ),
                 AppSpacing.horizontalSpaceSmall,
                 ...widget.selectedSeats.map(
-                  (seat) => Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: Chip(
-                      label: CText(
-                        seat,
-                        type: TextType.bodySmall,
-                        color: AppColors.gray700,
-                      ),
-                      backgroundColor: AppColors.white,
-                      side: const BorderSide(color: AppColors.gray300),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 4,
-                        vertical: 2,
-                      ),
+                  (seat) => Chip(
+                    label: CText(
+                      seat,
+                      type: TextType.bodySmall,
+                      color: AppColors.gray700,
+                    ),
+                    backgroundColor: AppColors.white,
+                    side: const BorderSide(color: AppColors.gray300),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 4,
+                      vertical: 2,
                     ),
                   ),
                 ),

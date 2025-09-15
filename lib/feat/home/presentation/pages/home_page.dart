@@ -22,29 +22,32 @@ class _HomePageState extends ConsumerState<HomePage> {
   String? toCity;
   String selectedDate = "Select Date";
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
+
       appBar: AppBar(
         backgroundColor: AppColors.white,
-        leading: Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: CircleAvatar(
-            radius: 36,
-            backgroundColor: AppColors.white,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset(AppAssets.onePlusLogo),
-            )
-          ),
-        ),
-        title: CText(
-          "OnePlus Yatayat App",
-          type: TextType.headlineSmall,
-          textAlign: TextAlign.left,
+        automaticallyImplyLeading: false,
+        // leading:
+        title: Row(
+          children: [
+            CircleAvatar(
+              radius: 25,
+              backgroundColor: AppColors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset(AppAssets.onePlusLogo),
+              ),
+            ),
+            AppSpacing.horizontalSpaceSmall,
+            CText(
+              "OnePlus Yatayat App",
+              type: TextType.titleLarge,
+              textAlign: TextAlign.left,
+            ),
+          ],
         ),
         actions: [
           GestureDetector(
@@ -83,7 +86,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 Expanded(
                   child: DropdownButtonFormField<String>(
                     dropdownColor: AppColors.white,
-                    value: fromCity,
+                    initialValue: fromCity,
                     decoration: InputDecoration(
                       prefixIcon: SvgPicture.asset(
                         AppAssets.busIcon,
@@ -98,7 +101,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         borderRadius: BorderRadius.circular(8),
                         borderSide: const BorderSide(color: AppColors.gray400),
                       ),
-                      filled: true,
+                      // filled: true,
                       fillColor: AppColors.white,
                       contentPadding: const EdgeInsets.symmetric(
                         vertical: 8,
@@ -111,7 +114,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                             .map(
                               (city) => DropdownMenuItem(
                                 value: city,
-                                child: CText(city,  ),
+                                child: CText(city),
                               ),
                             )
                             .toList(),
@@ -128,7 +131,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 Expanded(
                   child: DropdownButtonFormField<String>(
                     dropdownColor: AppColors.white,
-                    value: toCity,
+                    initialValue: toCity,
                     decoration: InputDecoration(
                       prefixIcon: SvgPicture.asset(
                         AppAssets.busIcon,
@@ -143,7 +146,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         borderRadius: BorderRadius.circular(8),
                         borderSide: const BorderSide(color: AppColors.gray400),
                       ),
-                      filled: true,
+                      // filled: true,
                       fillColor: AppColors.cardColor,
                       contentPadding: const EdgeInsets.symmetric(
                         vertical: 8,
@@ -180,7 +183,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                 });
               },
             ),
-
 
             ListView.builder(
               shrinkWrap: true,

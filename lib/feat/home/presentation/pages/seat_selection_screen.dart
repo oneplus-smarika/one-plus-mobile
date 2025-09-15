@@ -9,8 +9,9 @@ class SeatSelectionScreen extends StatefulWidget {
   final String arrivalTime;
   final String price;
 
-
-  const SeatSelectionScreen({super.key,      required this.busName,
+  const SeatSelectionScreen({
+    super.key,
+    required this.busName,
     required this.departureTime,
     required this.arrivalTime,
     required this.price,
@@ -27,6 +28,15 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
+      appBar: AppBar(
+        backgroundColor: AppColors.white,
+        title: CText(
+          "Select Seats",
+          type: TextType.headlineSmall,
+          textAlign: TextAlign.left,
+        ),
+        centerTitle: false,
+      ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(AppSpacing.pagePadding),
@@ -37,35 +47,6 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: () => Navigator.pop(context),
-                            icon: const Icon(
-                              Icons.arrow_back_ios,
-                              color: AppColors.black,
-                            ),
-                          ),
-                          AppSpacing.horizontalSpaceSmall,
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CText(
-                                "Select Seats",
-                                type: TextType.headlineSmall,
-                                textAlign: TextAlign.left,
-                              ),
-                             CText(
-                                widget.busName,
-                                type: TextType.titleMedium,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const Divider(thickness: 0.5),
-                      AppSpacing.verticalSpaceAverage,
-
                       /// Route + Date
                       Row(
                         children: [
@@ -96,7 +77,7 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
 
                       Row(
                         children: [
-                        CText(
+                          CText(
                             widget.departureTime,
                             type: TextType.bodyLarge,
                             color: AppColors.black,
@@ -108,7 +89,7 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                             size: 16,
                           ),
                           AppSpacing.horizontalSpaceTiny,
-                           CText(
+                          CText(
                             widget.arrivalTime,
                             type: TextType.bodyLarge,
                             color: AppColors.black,
@@ -226,9 +207,13 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => PassengerDetailsPage(
-                                selectedSeats: selectedSeats.map((s) => s.seatNumber).toList(),
-                              ),
+                              builder:
+                                  (context) => PassengerDetailsPage(
+                                    selectedSeats:
+                                        selectedSeats
+                                            .map((s) => s.seatNumber)
+                                            .toList(),
+                                  ),
                             ),
                           );
                         },

@@ -11,14 +11,14 @@ class BusCard extends StatelessWidget {
   final String arrival;
 
   const BusCard({
-    Key? key,
+    super.key,
     required this.busName,
     required this.busType,
     required this.price,
     required this.seatsLeft,
     required this.departure,
     required this.arrival,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,8 @@ class BusCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) {
-              return  SeatSelectionScreen(busName:busName,
+              return SeatSelectionScreen(
+                busName: busName,
                 departureTime: departure,
                 arrivalTime: arrival,
                 price: price,
@@ -39,15 +40,15 @@ class BusCard extends StatelessWidget {
       },
 
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            color:AppColors.cardColor,
-            borderRadius: BorderRadius.circular(12)
+            color: AppColors.cardColor,
+            borderRadius: BorderRadius.circular(12),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -56,10 +57,10 @@ class BusCard extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        CircleAvatar(
-                          radius: 42,
-                          backgroundColor: AppColors.cardColor,
-                          backgroundImage: AssetImage(AppAssets.appLogo),
+                        Image.asset(
+                          AppAssets.onePlusLogo,
+                          height: 38,
+                          width: 38,
                         ),
                         AppSpacing.horizontalSpaceSmall,
                         Column(
@@ -69,22 +70,23 @@ class BusCard extends StatelessWidget {
                               width: 150,
                               child: CText(
                                 busName,
-                                type: TextType.titleLarge,
-                                fontWeight: FontWeight.w300,
+                                type: TextType.titleMedium,
+                                fontWeight: FontWeight.w400,
                                 color: AppColors.black,
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
                             CText(
                               busType,
-                              type: TextType.bodyMedium,
+                              type: TextType.bodySmall,
                               color: AppColors.gray900,
-                              fontWeight: FontWeight.w300,
+                              fontWeight: FontWeight.w400,
                             ),
                           ],
                         ),
                       ],
                     ),
+
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
@@ -99,24 +101,35 @@ class BusCard extends StatelessWidget {
                     ),
                   ],
                 ),
+                AppSpacing.verticalSpaceMedium,
                 Row(
                   children: [
                     Chip(
                       backgroundColor: AppColors.cardColor,
-                      side: BorderSide(color: AppColors.mainColor),
+                      side: BorderSide(color: AppColors.gray400),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
                       label: CText(departure, type: TextType.bodySmall),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 1,
+                        horizontal: 4,
+                      ),
+                      visualDensity: VisualDensity.compact,
                     ),
-                    AppSpacing.horizontalSpaceAverage,
+                    AppSpacing.horizontalSpaceSmall,
                     Chip(
                       backgroundColor: AppColors.cardColor,
-                      side: BorderSide(color: AppColors.mainColor),
+                      side: BorderSide(color: AppColors.gray400),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
                       label: CText(arrival, type: TextType.bodySmall),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 1,
+                        horizontal: 4,
+                      ),
+                      visualDensity: VisualDensity.compact,
                     ),
                   ],
                 ),

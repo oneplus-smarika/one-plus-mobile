@@ -87,6 +87,7 @@ class PaymentSuccessController extends StateNotifier<PaymentSuccessState> {
     final formatter = DateFormat('dd/MM/yyyy, hh:mm:ss a');
     return formatter.format(dateTime);
   }
+
   String getPaymentMethodDisplay() {
     switch (state.data.paymentMethod.toLowerCase()) {
       case 'esewa':
@@ -129,7 +130,6 @@ class PaymentSuccessController extends StateNotifier<PaymentSuccessState> {
     try {
       state = state.copyWith(isLoading: true);
 
-
       state = state.copyWith(isLoading: false);
     } catch (e) {
       state = state.copyWith(
@@ -143,7 +143,6 @@ class PaymentSuccessController extends StateNotifier<PaymentSuccessState> {
     try {
       state = state.copyWith(isLoading: true);
 
-
       state = state.copyWith(isLoading: false);
     } catch (e) {
       state = state.copyWith(
@@ -156,7 +155,6 @@ class PaymentSuccessController extends StateNotifier<PaymentSuccessState> {
   Future<void> shareTicket() async {
     try {
       state = state.copyWith(isLoading: true);
-
 
       state = state.copyWith(isLoading: false);
     } catch (e) {
@@ -176,7 +174,6 @@ class PaymentSuccessController extends StateNotifier<PaymentSuccessState> {
       "Visit the bus counter at least 1 hour before departure",
       "Show this booking confirmation to the counter staff",
       "Pay the remaining amount and collect your tickets",
-      "Carry valid photo ID proof for verification",
     ];
   }
 

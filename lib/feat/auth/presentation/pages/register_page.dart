@@ -19,26 +19,25 @@ class RegisterPage extends ConsumerWidget {
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(
-                  AppAssets.onePlusLogo,
-                  height:70,
-                  alignment: Alignment.center,
-                  fit: BoxFit.contain,
+                AppSpacing.verticalSpaceVeryLarge,
+                Center(
+                  child: Image.asset(
+                    AppAssets.onePlusLogo,
+                    height: 70,
+                    alignment: Alignment.center,
+                    fit: BoxFit.contain,
+                  ),
                 ),
-                const CText(
-                  'Lets Get Started',
-                  type: TextType.titleMedium,
-                  textAlign: TextAlign.start,
-                ),
-                AppSpacing.verticalSpaceTiny,
+                AppSpacing.verticalSpaceVeryLarge,
+
                 const CText(
                   'Fill Up Your Personal Information',
                   type: TextType.titleMedium,
                   textAlign: TextAlign.start,
                 ),
-                AppSpacing.verticalSpaceLarge,
+                AppSpacing.verticalSpaceMedium,
                 CustTextField(
                   controller: controller.fullNameController,
                   headerWidget: const CText(
@@ -55,11 +54,14 @@ class RegisterPage extends ConsumerWidget {
                 DropdownButtonFormField<String>(
                   borderRadius: BorderRadius.circular(12.0),
                   isExpanded: true,
-                  value: gender,
+                  initialValue: gender,
                   hint: const CText('Select Gender'),
-                  items: ['Female', 'Male', 'Other']
-                      .map((e) => DropdownMenuItem(value: e, child: CText(e)))
-                      .toList(),
+                  items:
+                      ['Female', 'Male', 'Other']
+                          .map(
+                            (e) => DropdownMenuItem(value: e, child: CText(e)),
+                          )
+                          .toList(),
                   onChanged: (value) {
                     if (value != null) controller.updateGender(value);
                   },
@@ -92,10 +94,14 @@ class RegisterPage extends ConsumerWidget {
                     AppMethods.showLoaderDialog(context, txt: "Loading...");
                     Future.delayed(const Duration(seconds: 2), () {
                       AppMethods.dismissLoaderDialog(context);
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return const HomePage();
-                      }));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const HomePage();
+                          },
+                        ),
+                      );
                     });
                   },
                 ),

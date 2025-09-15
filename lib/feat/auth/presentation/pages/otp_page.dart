@@ -14,13 +14,13 @@ class OtpPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('OTP')),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
               AppAssets.onePlusLogo,
-              height:70,
+              height: 70,
               alignment: Alignment.center,
               fit: BoxFit.contain,
             ),
