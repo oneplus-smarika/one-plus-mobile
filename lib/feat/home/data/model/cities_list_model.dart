@@ -5,5 +5,5 @@ final cities = [
   "Butwal",
   "Chitwan",
   "Dharan",
-  "Nepalgunj NISN",
+  "Nepalgunj",
 ];

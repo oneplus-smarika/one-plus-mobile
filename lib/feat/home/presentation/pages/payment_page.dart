@@ -37,25 +37,11 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
       backgroundColor: AppColors.white,
       appBar: AppBar(
         backgroundColor: AppColors.white,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const CText(
-              "Payment",
-              type: TextType.headlineSmall,
-              textAlign: TextAlign.left,
-            ),
-            const CText(
-              "Choose your payment method",
-              type: TextType.bodyMedium,
-              color: AppColors.gray700,
-              textAlign: TextAlign.left,
-            ),
-          ],
+
+        title: const CText(
+          "Payment",
+          type: TextType.headlineSmall,
+          textAlign: TextAlign.left,
         ),
         centerTitle: false,
         elevation: 0,
@@ -65,9 +51,6 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Divider(color: AppColors.gray300),
-            AppSpacing.verticalSpaceSmall,
-
             Row(
               children: [
                 Container(
@@ -83,7 +66,7 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
                     size: 24,
                   ),
                 ),
-                AppSpacing.horizontalSpaceSmall,
+                AppSpacing.horizontalSpaceMedium,
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

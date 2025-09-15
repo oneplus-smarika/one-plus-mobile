@@ -17,10 +17,7 @@ class PassengerForm extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(passengerFormProvider(seatNumber).notifier);
-
-    ref.listen(passengerFormProvider(seatNumber), (previous, next) {
-      controller.updateGender(next['gender']);
-    });
+    final formState = ref.watch(passengerFormProvider(seatNumber));
 
     return Card(
       color: AppColors.cardColor,
@@ -96,7 +93,7 @@ class PassengerForm extends ConsumerWidget {
                         labelText: "Gender *",
                         hintText: "Select",
                         borderColor: AppColors.gray400,
-                        value: controller.gender,
+                        value: formState['gender'],
                         items:
                             ["Male", "Female", "Other"]
                                 .map(
